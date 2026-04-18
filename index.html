@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSA 程序鎮靜止痛 — 一日入門課程講義</title>
+<style>
+/* Offline-ready system font stacks for Traditional Chinese */
+:root {
+  --font-sans: "PingFang TC", "Microsoft JhengHei", "Heiti TC", "Noto Sans TC", "Source Han Sans TC", sans-serif;
+  --font-serif: "Songti TC", "PMingLiU", "Noto Serif TC", "Source Han Serif TC", serif;
+}
+:root {
+  --c-bg: #FAFAF8;
+  --c-surface: #FFFFFF;
+  --c-border: #D6D3CC;
+  --c-text: #1A1A18;
+  --c-text2: #4A4A46;
+  --c-accent: #1B6B5A;
+  --c-accent-light: #E8F4F0;
+  --c-warn: #B8450D;
+  --c-warn-light: #FFF3EC;
+  --c-danger: #A42030;
+  --c-danger-light: #FFF0F2;
+  --c-info: #2D5FA0;
+  --c-info-light: #EDF3FC;
+  --c-purple: #6B4FA0;
+  --c-purple-light: #F3EFFC;
+  --c-dark: #1A2332;
+}
+
+@page {
+  size: A4;
+  margin: 18mm 16mm;
+}
+
+@media print {
+  body { font-size: 9pt; }
+  .page-break { page-break-before: always; }
+  .no-print { display: none; }
+  section { page-break-inside: avoid; }
+  .drug-card { page-break-inside: avoid; }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--c-bg);
+  color: var(--c-text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ── COVER ── */
+.cover {
+  background: linear-gradient(135deg, var(--c-dark) 0%, #1B3B4A 40%, var(--c-accent) 100%);
+  color: #fff;
+  padding: 80px 48px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 280px; height: 280px;
+  border: 3px solid rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 200px; height: 200px;
+  border: 3px solid rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+.cover h1 {
+  font-family: var(--font-serif);
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.cover .subtitle {
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 0.85;
+  margin-bottom: 28px;
+}
+.cover .meta {
+  font-size: 13px;
+  opacity: 0.55;
+  line-height: 1.9;
+}
+
+/* ── TOC ── */
+.toc {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 32px 36px;
+  margin-bottom: 40px;
+}
+.toc h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: var(--c-accent);
+  font-family: var(--font-serif);
+}
+.toc ol {
+  columns: 2;
+  column-gap: 40px;
+  padding-left: 22px;
+}
+.toc li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--c-text2);
+  break-inside: avoid;
+}
+
+/* ── SECTIONS ── */
+.section {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 36px 40px;
+  margin-bottom: 28px;
+}
+.section h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--c-accent);
+  border-bottom: 2px solid var(--c-accent);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+.section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 20px 0 10px;
+  color: var(--c-text);
+}
+.section h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 14px 0 8px;
+  color: var(--c-text2);
+}
+
+p, li { font-size: 14px; color: var(--c-text2); }
+ul, ol { padding-left: 20px; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+
+/* ── TABLES ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0 18px;
+  font-size: 13px;
+}
+th {
+  background: var(--c-accent);
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+  padding: 8px 12px;
+}
+th:first-child { border-radius: 6px 0 0 0; }
+th:last-child { border-radius: 0 6px 0 0; }
+td {
+  padding: 7px 12px;
+  border-bottom: 1px solid #E8E6E1;
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: #F7F6F3; }
+
+/* ── DRUG CARDS ── */
+.drug-card {
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.drug-card-header {
+  padding: 14px 20px;
+  font-size: 17px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.drug-card-header .receptor {
+  font-size: 12px;
+  font-weight: 400;
+  background: rgba(255,255,255,0.2);
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.drug-card-body {
+  padding: 20px 24px;
+}
+.drug-ketamine .drug-card-header { background: linear-gradient(135deg, #1B6B5A, #2A8F75); }
+.drug-propofol .drug-card-header { background: linear-gradient(135deg, #2D5FA0, #4A8BD4); }
+.drug-precedex .drug-card-header { background: linear-gradient(135deg, #6B4FA0, #9370D8); }
+.drug-remimazolam .drug-card-header { background: linear-gradient(135deg, #B8450D, #D4732A); }
+
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+.pill {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.pill-green { background: var(--c-accent-light); color: var(--c-accent); }
+.pill-red { background: var(--c-danger-light); color: var(--c-danger); }
+.pill-blue { background: var(--c-info-light); color: var(--c-info); }
+.pill-orange { background: var(--c-warn-light); color: var(--c-warn); }
+
+/* ── CALLOUTS ── */
+.callout {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.callout-warn {
+  background: var(--c-warn-light);
+  border-left: 4px solid var(--c-warn);
+  color: var(--c-warn);
+}
+.callout-danger {
+  background: var(--c-danger-light);
+  border-left: 4px solid var(--c-danger);
+  color: var(--c-danger);
+}
+.callout-info {
+  background: var(--c-info-light);
+  border-left: 4px solid var(--c-info);
+  color: var(--c-info);
+}
+.callout-tip {
+  background: var(--c-accent-light);
+  border-left: 4px solid var(--c-accent);
+  color: var(--c-accent);
+}
+
+/* ── FLOWCHART SVG ── */
+.flowchart-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+  text-align: center;
+}
+.flowchart-wrap svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── WAVEFORM ── */
+.waveform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+@media (max-width: 700px) {
+  .waveform-grid { grid-template-columns: 1fr; }
+}
+.waveform-card {
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.waveform-card h4 {
+  margin: 8px 0 4px;
+  font-size: 14px;
+  color: var(--c-text);
+}
+.waveform-card p {
+  font-size: 12px;
+  color: var(--c-text2);
+}
+.waveform-card svg { max-width: 100%; }
+
+/* ── STEP FLOW ── */
+.step-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin: 14px 0;
+  justify-content: center;
+}
+.step-box {
+  background: var(--c-accent);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  min-width: 80px;
+}
+.step-arrow {
+  font-size: 20px;
+  color: var(--c-accent);
+  padding: 0 4px;
+  font-weight: 900;
+}
+
+/* ── TWO-COL ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 12px 0;
+}
+@media (max-width: 700px) {
+  .two-col { grid-template-columns: 1fr; }
+  .cover { padding: 40px 24px; }
+  .cover h1 { font-size: 26px; }
+  .section { padding: 24px 20px; }
+  .toc ol { columns: 1; }
+}
+
+.compact-table td, .compact-table th { padding: 5px 10px; font-size: 12px; }
+
+footer {
+  text-align: center;
+  padding: 32px;
+  font-size: 12px;
+  color: #999;
+}
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--c-dark);
+  padding: 10px 24px;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.top-nav .nav-title {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.top-nav a {
+  color: #fff;
+  background: var(--c-accent);
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+.top-nav a:hover { background: #24876F; }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <span class="nav-title">20260419 急診醫學會外傷處置課程 PSA 專題</span>
+  <div>
+    <a href="index.html" style="margin-right:8px;">📋 講義</a>
+    <a href="quiz.html">📝 測驗</a>
+  </div>
+</div>
+<div class="container">
+
+<!-- ════════════════ COVER ════════════════ -->
+<div class="cover">
+  <h1>程序鎮靜止痛（PSA）</h1>
+  <div class="subtitle">Procedural Sedation & Analgesia — 一日入門課程講義</div>
+  <div class="meta">
+    本整理為台灣急診醫學會程序鎮靜指南之節錄。<br>
+    僅供專業人士參考。最終內容以正式發布之版本為主。
+  </div>
+</div>
+
+<!-- ════════════════ TOC ════════════════ -->
+<div class="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li>鎮靜層級與定義</li>
+    <li>適應症</li>
+    <li>術前評估</li>
+    <li>禁食建議</li>
+    <li>藥物總覽（Ketamine / Propofol / Dexmedetomidine / Remimazolam）</li>
+    <li>拮抗劑</li>
+    <li>監測要求與 EtCO₂ 波形</li>
+    <li>危機處理：低血氧 / 舌頭後倒 / 喉痙攣 / 嚴重嗆咳甚至是吸入性肺炎 / 支氣管痙攣</li>
+    <li>CICO 與外科氣道</li>
+    <li>恢復與出院標準</li>
+    <li>特殊族群</li>
+    <li>RAVOC 評估框架與危機資源管理</li>
+  </ol>
+</div>
+
+<!-- ════════════════ 1. 鎮靜層級 ════════════════ -->
+<div class="section">
+  <h2>一、鎮靜層級與定義</h2>
+  <p>程序性鎮靜是給予鎮靜劑或解離性藥物（可合併鎮痛劑），使患者進入意識改變狀態，以耐受不適或疼痛的操作。</p>
+  <table>
+    <tr><th>層級</th><th>意識狀態</th><th>呼吸功能</th><th>心血管功能</th></tr>
+    <tr><td><strong>最小鎮靜</strong></td><td>近基線，正常回應</td><td>不受影響</td><td>不受影響</td></tr>
+    <tr><td><strong>中度鎮靜</strong></td><td>對口令有目的性反應</td><td>自主呼吸足夠</td><td>通常維持</td></tr>
+    <tr><td><strong>解離性鎮靜</strong></td><td>催眠樣狀態，強效鎮痛</td><td>保留保護性反射</td><td>心肺穩定</td></tr>
+    <tr><td><strong>深度鎮靜</strong></td><td>不易喚醒</td><td>可能受損</td><td>需密切監測</td></tr>
+  </table>
+  <div class="callout callout-info">💡 鎮靜深度是一個連續光譜，即使目標為中度鎮靜，也可能意外進入深度鎮靜，需具備處理深度鎮靜併發症的能力。</div>
+</div>
+
+<!-- ════════════════ 2. 適應症 ════════════════ -->
+<div class="section">
+  <h2>二、適應症</h2>
+  <div class="two-col">
+    <div>
+      <h4>常見適應症</h4>
+      <ul>
+        <li>內視鏡檢查（EGD、大腸鏡）</li>
+        <li>膿瘍切開引流</li>
+        <li>骨折 / 脫臼復位</li>
+        <li>整流（Cardioversion）</li>
+        <li>無法配合的小兒患者</li>
+      </ul>
+    </div>
+    <div>
+      <h4>特殊適應症</h4>
+      <ul>
+        <li>需配合不動的影像檢查（CT / MRI）</li>
+        <li>可能造成嚴重情緒困擾的檢查</li>
+        <li>支氣管鏡檢查</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ 3. 術前評估 ════════════════ -->
+<div class="section">
+  <h2>三、術前評估</h2>
+  <h3>EDCPA 術前評估架構</h3>
+  <table>
+    <tr><th>字母</th><th>項目</th><th>評估內容</th></tr>
+    <tr><td><strong>E</strong></td><td>Experience</td><td>先前鎮靜 / 麻醉經驗、不良反應史、藥物過敏史</td></tr>
+    <tr><td><strong>D</strong></td><td>Developmental issues / difference</td><td>（小兒適用）發展遲緩、染色體異常（如 Down syndrome）、認知或行為差異對配合度的影響</td></tr>
+    <tr><td><strong>C</strong></td><td>Cardiac risk</td><td>心血管共病、瓣膜疾病、心衰竭、心律不整、高血壓；必要時安排心臟超音波（EF / 瓣膜）及 ECG</td></tr>
+    <tr><td><strong>P</strong></td><td>Pulmonary</td><td>氣喘、COPD、OSA、近期上呼道感染、肥胖相關限制性肺疾病</td></tr>
+    <tr><td><strong>A</strong></td><td>Airway &amp; Aspiration risk</td><td>困難氣道評估（LEMON score）、OBESE score、禁食狀態、GERD、誤嚥風險</td></tr>
+  </table>
+
+  <h3>LEMON Score — 困難氣道預測</h3>
+  <table>
+    <tr><th>字母</th><th>項目</th><th>評估重點</th></tr>
+    <tr><td><strong>L</strong></td><td>Look externally</td><td>外觀：面部創傷、大門牙、鬍鬚、大舌頭</td></tr>
+    <tr><td><strong>E</strong></td><td>Evaluate 3-3-2</td><td>張口距 ≥ 3 指、下頜舌骨距 ≥ 3 指、甲狀舌骨距 ≥ 2 指</td></tr>
+    <tr><td><strong>M</strong></td><td>Mallampati</td><td>Mallampati 分級（III–IV 困難度高）</td></tr>
+    <tr><td><strong>O</strong></td><td>Obstruction / Obesity</td><td>氣道阻塞（異物、腫瘤、水腫）及肥胖</td></tr>
+    <tr><td><strong>N</strong></td><td>Neck mobility</td><td>頸部活動度（頸椎限制、外傷固定）</td></tr>
+  </table>
+
+  <h3>OBESE Score — 鎮靜期間困難通氣風險</h3>
+  <div class="callout callout-info">💡 OBESE score 用於預測 mask ventilation 困難度，與 LEMON（預測插管困難）互補使用。</div>
+  <table>
+    <tr><th>字母</th><th>項目</th><th>說明</th></tr>
+    <tr><td><strong>O</strong></td><td>Obese</td><td>BMI ≥ 26（肥胖）</td></tr>
+    <tr><td><strong>B</strong></td><td>Bearded</td><td>鬍鬚影響面罩密封</td></tr>
+    <tr><td><strong>E</strong></td><td>Elderly</td><td>年齡 ≥ 55 歲</td></tr>
+    <tr><td><strong>S</strong></td><td>Snoring / Sleep apnea</td><td>打鼾或已知 OSA</td></tr>
+    <tr><td><strong>E</strong></td><td>Edentulous</td><td>無牙（缺牙影響面罩密封）</td></tr>
+  </table>
+
+  <h3>心臟超音波與心電圖評估</h3>
+  <div class="callout callout-tip">💡 對於疑似心血管共病或高風險病人，建議術前進行以下評估：</div>
+  <ul>
+    <li><strong>心臟超音波（Echocardiography）：</strong>評估瓣膜功能（valvular disease）及左心室射出分率（EF），辨識嚴重主動脈瓣狹窄、二尖瓣逆流或 EF &lt; 40% 等高風險狀態</li>
+    <li><strong>12-Lead ECG：</strong>評估基礎心律、傳導異常（如 heart block）、ST 變化、QT 延長等</li>
+    <li>上述結果可影響藥物選擇（如避免 Propofol 用於嚴重低 EF、避免 Dexmedetomidine 用於 heart block）</li>
+  </ul>
+
+  <h3>藥物選擇三大考量</h3>
+  <table>
+    <tr><th>面向</th><th>考量因素</th></tr>
+    <tr><td><strong>Procedure</strong></td><td>疼痛程度、持續時間、需固定程度</td></tr>
+    <tr><td><strong>Patient</strong></td><td>共病、焦慮程度、ASA 分級、氣道評估</td></tr>
+    <tr><td><strong>Environment</strong></td><td>監測設備、人員技能、人力配置</td></tr>
+  </table>
+
+  <h3>氣道評估重點</h3>
+  <div class="two-col">
+    <div>
+      <ul>
+        <li>短頸 / 頸部活動度受限</li>
+        <li>甲狀下頜距離 &lt; 3 cm</li>
+        <li>張口受限 &lt; 3 cm</li>
+        <li>舌頭肥大 / 扁桃腺肥大</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>小頷 / 下頷後縮</li>
+        <li>Modified Mallampati 3–4 級</li>
+        <li>顯著肥胖（面部及頸部）</li>
+        <li>打鼾或已知 OSA</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>ASA 身體狀態分級</h3>
+  <table class="compact-table">
+    <tr><th>分級</th><th>說明</th></tr>
+    <tr><td>I</td><td>正常健康</td></tr>
+    <tr><td>II</td><td>輕度全身性疾病</td></tr>
+    <tr><td>III</td><td>嚴重全身性疾病</td></tr>
+    <tr><td>IV</td><td>嚴重且對生命構成持續威脅</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════ 4. 禁食 ════════════════ -->
+<div class="section">
+  <h2>四、禁食建議</h2>
+  <div class="callout callout-warn">⚠️ ACEP Level B：<strong>急診程序性鎮靜不應因禁食時間而延遲</strong>，禁食未被證實能降低嘔吐或吸入風險。</div>
+  <h3>擇期手術 ASA 最低禁食時間</h3>
+  <table>
+    <tr><th>飲食類型</th><th>最低禁食時間</th></tr>
+    <tr><td>清澈液體（水、無果肉果汁、黑咖啡）</td><td>2 小時</td></tr>
+    <tr><td>母乳</td><td>4 小時</td></tr>
+    <tr><td>非人類乳品 / 配方奶 / 輕食</td><td>6 小時</td></tr>
+    <tr><td>油炸食物、脂肪食物、肉類</td><td>≥ 8 小時</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════ 5. 藥物 ════════════════ -->
+<div class="section page-break">
+  <h2>五、藥物總覽</h2>
+  <p style="margin-bottom:18px;">以下僅列入本課程四大核心藥物。搭配選擇時請依 Procedure / Patient / Environment 三面向考量。</p>
+
+  <!-- ── KETAMINE ── -->
+  <div class="drug-card drug-ketamine">
+    <div class="drug-card-header">
+      Ketamine
+      <span class="receptor">NMDA 受體拮抗</span>
+    </div>
+    <div class="drug-card-body">
+      <div class="pill-row">
+        <span class="pill pill-green">✔ 鎮靜＋止痛（雙效）</span>
+        <span class="pill pill-green">✔ 保留呼吸驅力</span>
+        <span class="pill pill-green">✔ 心血管穩定（升壓）</span>
+        <span class="pill pill-green">✔ 支氣管擴張</span>
+        <span class="pill pill-green">✔ 兒童首選（Level A）</span>
+        <span class="pill pill-blue">IV / IM 多途徑</span>
+      </div>
+      <h4>劑量</h4>
+      <table class="compact-table">
+        <tr><th>途徑</th><th>成人</th><th>小兒</th><th>起效</th><th>持續</th></tr>
+        <tr><td><strong>IV</strong></td><td>1–2 mg/kg（追加 0.5–1 mg/kg q5–10 min）</td><td>1.5–2 mg/kg</td><td>30–40 秒</td><td>10–20 分鐘</td></tr>
+        <tr><td><strong>IM</strong></td><td>4–5 mg/kg（追加 2–4 mg/kg PRN）</td><td>4–5 mg/kg</td><td>3–5 分鐘</td><td>10–20 分鐘</td></tr>
+      </table>
+      <div class="callout callout-warn">
+        ⚠️ <strong>副作用：</strong>Hypersympathetic（↑HR ↑BP）、Emergence reaction（幻覺/譫妄）、Bronchorrhea（分泌物增加）、肌肉亢進、噁心嘔吐、暫時性呼吸暫停（快速推注時）<br>
+        ⚠️ 避免：已知精神疾病（psychosis）、心血管高風險老人
+      </div>
+      <h4>應急</h4>
+      <ul>
+        <li><strong>打開呼吸道 →</strong> Head-tilt-Chin-lift / Jaw-thrust、OPA/NPA</li>
+        <li><strong>Emergence reaction →</strong> Midazolam 0.05 mg/kg pretreat 或事後處理</li>
+        <li><strong>Bronchorrhea →</strong> Glycopyrrolate 或 Atropine</li>
+      </ul>
+      <div class="callout callout-tip">
+        💡 <strong>Ketofol（Ketamine + Propofol 1:1）</strong>：各 0.5 mg/kg IV，可互相抵消副作用。追加僅追加 Propofol。<strong>不建議用於小兒。</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRECEDEX ── -->
+  <div class="drug-card drug-precedex">
+    <div class="drug-card-header">
+      Dexmedetomidine（Precedex）
+      <span class="receptor">α2a 受體促效</span>
+    </div>
+    <div class="drug-card-body">
+      <div class="pill-row">
+        <span class="pill pill-green">✔ 無呼吸抑制（最大優勢）</span>
+        <span class="pill pill-green">✔ Cooperative sedation（可喚醒配合）</span>
+        <span class="pill pill-green">✔ 適合 MRI / awake intubation</span>
+        <span class="pill pill-red">✘ 鎮靜深度不可靠</span>
+        <span class="pill pill-red">✘ 無拮抗劑</span>
+      </div>
+      <h4>劑量</h4>
+      <table class="compact-table">
+        <tr><th>途徑</th><th>劑量</th><th>說明</th></tr>
+        <tr><td><strong>IV Loading</strong></td><td>1 μg/kg，輸注 10 分鐘</td><td>老年人 0.5 μg/kg 或省略</td></tr>
+        <tr><td><strong>IV Maintenance</strong></td><td>0.2–1 μg/kg/hr</td><td>起始 0.6 μg/kg/hr，視深度調整</td></tr>
+      </table>
+      <div class="callout callout-warn">
+        ⚠️ <strong>副作用：</strong>Bradycardia（老年 ~23%）、Hypotension（老年 ~36%）、Loading 初期暫時性高血壓<br>
+        ⚠️ 避免：Heart block、嚴重心室功能障礙、嚴重低血壓、需要快速深度鎮靜的程序
+      </div>
+      <h4>應急</h4>
+      <ul>
+        <li><strong>打開呼吸道 →</strong> Head-tilt-Chin-lift / Jaw-thrust、OPA/NPA</li>
+        <li><strong>Bradycardia →</strong> Atropine / Glycopyrrolate；必要時 Epinephrine</li>
+        <li><strong>Hypotension →</strong> IV fluid、Pressor、下肢抬高</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── REMIMAZOLAM ── -->
+  <div class="drug-card drug-remimazolam">
+    <div class="drug-card-header">
+      Remimazolam（Byfavo）
+      <span class="receptor">GABAa 受體（超短效 BZD）</span>
+    </div>
+    <div class="drug-card-body">
+      <div class="pill-row">
+        <span class="pill pill-green">✔ 器官獨立代謝（tissue esterase）</span>
+        <span class="pill pill-green">✔ 有拮抗劑 Flumazenil</span>
+        <span class="pill pill-green">✔ 低血壓 / 呼吸抑制風險低於 Propofol</span>
+        <span class="pill pill-green">✔ 無注射疼痛</span>
+        <span class="pill pill-blue">血漿半衰期 ~10 min</span>
+      </div>
+      <h4>劑量</h4>
+      <table class="compact-table">
+        <tr><th>途徑</th><th>初始</th><th>追加</th><th>說明</th></tr>
+        <tr><td><strong>IV（PSA）</strong></td><td>7.5 mg bolus</td><td>2.5 mg PRN</td><td>視鎮靜深度追加，總劑量不超過 33 mg</td></tr>
+      </table>
+      <div class="callout callout-warn">
+        ⚠️ 老年（>65 歲）、ASA III–IV、體重 &lt; 50 kg：降低劑量 0–50%<br>
+        ⚠️ 合併 opioid 時需降低劑量 31–65%<br>
+        ⚠️ 對 Dextran 40 嚴重過敏者禁用<br>
+        ⚠️ Delayed emergence / Re-sedation（2–22%）
+      </div>
+      <h4>應急</h4>
+      <ul>
+        <li><strong>打開呼吸道 →</strong> Head-tilt-Chin-lift / Jaw-thrust、OPA/NPA</li>
+        <li><strong>過度鎮靜 / 呼吸抑制 →</strong> Flumazenil 0.2 mg IV，q1 min 可追加，最多 4 次</li>
+        <li>⚠️ Flumazenil 半衰期短 → 需監測 re-sedation（1–2 小時內）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── PROPOFOL ── -->
+  <div class="drug-card drug-propofol">
+    <div class="drug-card-header">
+      Propofol
+      <span class="receptor">GABAa 受體</span>
+    </div>
+    <div class="drug-card-body">
+      <div class="pill-row">
+        <span class="pill pill-green">✔ 超快起效（15–30 秒）</span>
+        <span class="pill pill-green">✔ 恢復快（3–10 分鐘）</span>
+        <span class="pill pill-green">✔ 肌肉鬆弛佳（骨科復位首選）</span>
+        <span class="pill pill-green">✔ 抗嘔吐</span>
+        <span class="pill pill-red">✘ 無止痛作用</span>
+      </div>
+      <h4>劑量</h4>
+      <table class="compact-table">
+        <tr><th>途徑</th><th>劑量</th><th>起效</th><th>持續</th></tr>
+        <tr><td><strong>IV</strong></td><td>0.5–1 mg/kg bolus → 追加 0.25–0.5 mg/kg q2–3 min</td><td>15–30 秒</td><td>3–10 分鐘</td></tr>
+      </table>
+      <div class="callout callout-danger">
+        🚨 <strong>主要風險：</strong>顯著低血壓 ＋ 呼吸抑制 → 避免用於血流動力學不穩定病人<br>
+        ⚠️ 注射疼痛、Propofol infusion syndrome（長時間高劑量）<br>
+        ⚠️ <strong>無止痛作用</strong> — 需搭配 Fentanyl pretreat（0.5–1 μg/kg slow push）
+      </div>
+      <h4>應急</h4>
+      <ul>
+        <li><strong>打開呼吸道 →</strong> Head-tilt-Chin-lift / Jaw-thrust、OPA/NPA</li>
+        <li><strong>低血壓 →</strong> IV fluid bolus、Vasopressors（Epinephrine / Norepinephrine）</li>
+        <li><strong>呼吸抑制 →</strong> 給氧、BVM、必要時插管</li>
+        <li><strong>Laryngospasm →</strong> 和 Ketamine 併用可能會增加 Laryngospasm risk</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 藥物快速比較 ── -->
+  <h3>四大藥物快速比較</h3>
+  <table>
+    <tr>
+      <th>特性</th><th>Ketamine</th><th>Dexmedetomidine</th><th>Remimazolam</th><th>Propofol</th>
+    </tr>
+    <tr><td><strong>止痛</strong></td><td style="color:var(--c-accent);font-weight:700">✔ 強效</td><td>輔助</td><td>✘</td><td>✘</td></tr>
+    <tr><td><strong>呼吸抑制</strong></td><td>極低</td><td style="color:var(--c-accent);font-weight:700">無</td><td>低（&lt; Propofol）</td><td style="color:var(--c-danger);font-weight:700">顯著</td></tr>
+    <tr><td><strong>血壓影響</strong></td><td>↑（升壓）</td><td>↓ 低血壓</td><td>↓（低於 Propofol）</td><td style="color:var(--c-danger)">↓↓ 低血壓</td></tr>
+    <tr><td><strong>起效</strong></td><td>30–40 秒 IV</td><td>&lt; 5 min</td><td>1–3 min</td><td>15–30 秒</td></tr>
+    <tr><td><strong>拮抗劑</strong></td><td>無</td><td>無</td><td style="color:var(--c-accent);font-weight:700">Flumazenil ✔</td><td>無</td></tr>
+    <tr><td><strong>放鬆肌肉</strong></td><td>亢進</td><td>輕微</td><td>輕微</td><td style="color:var(--c-accent);font-weight:700">佳</td></tr>
+    <tr><td><strong>最佳適用</strong></td><td>兒童、低血壓<br>氣喘、需加強止痛</td><td>awake intubation<br>高呼吸風險</td><td>內視鏡<br>高呼吸道風險<br>awake intubation</td><td>—</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════ 6. 拮抗劑 ════════════════ -->
+<div class="section">
+  <h2>六、拮抗劑</h2>
+  <table>
+    <tr><th>藥物</th><th>拮抗對象</th><th>劑量</th><th>Onset</th><th>Duration</th></tr>
+    <tr><td><strong>Flumazenil</strong></td><td>BZD（Remimazolam）</td><td>0.2 mg IV → q60 sec，最大 1 mg</td><td>1–3 min</td><td>&lt; 60 min</td></tr>
+  </table>
+  <div class="callout callout-danger">
+    🚨 Propofol、Ketamine、Dexmedetomidine <strong>無特異性拮抗劑</strong>，發生不良反應時需支持性治療。<br>
+    🚨 Flumazenil 半衰期短於 BZD → 監測 re-sedation！慢性 BZD 使用者可能誘發癲癇。
+  </div>
+</div>
+
+<!-- ════════════════ 7. 監測 ════════════════ -->
+<div class="section page-break">
+  <h2>七、監測要求</h2>
+  <h3>必要監測項目</h3>
+  <table>
+    <tr><th>項目</th><th>說明</th></tr>
+    <tr><td><strong>SpO₂</strong></td><td>所有患者持續監測，設定警報</td></tr>
+    <tr><td><strong>EtCO₂（Capnography）</strong></td><td>中度鎮靜達成後持續監測 — 比 SpO₂ 更早偵測低通氣（hypoventilation）及呼吸暫停</td></tr>
+    <tr><td><strong>血壓</strong></td><td>每 5 分鐘量測</td></tr>
+    <tr><td><strong>心電圖</strong></td><td>心血管疾病或預期心律不整時</td></tr>
+    <tr><td><strong>臨床觀察</strong></td><td>呼吸頻率、胸廓起伏、意識程度</td></tr>
+  </table>
+  <div class="callout callout-danger">🚨 <strong>重要：</strong>若無 EtCO₂ capnography 監測，應避免常規給予氧氣補充，以免掩蓋呼吸暫停（apnea）或其他氣道緊急狀況 — SpO₂ 在補充氧氣下可能維持正常值，延遲對低通氣的偵測。</div>
+
+  <h3>鎮靜深度評估（MOAA/S）</h3>
+  <table class="compact-table">
+    <tr><th>分數</th><th>狀態</th></tr>
+    <tr><td>5</td><td>正常音量呼喚即反應</td></tr>
+    <tr><td>4</td><td>反應遲鈍</td></tr>
+    <tr><td>3</td><td>反覆或大聲呼喚才反應</td></tr>
+    <tr><td>2</td><td>輕度搖晃才反應</td></tr>
+    <tr><td>1</td><td>疼痛刺激有目的性反應</td></tr>
+    <tr><td>0</td><td>疼痛刺激無反應</td></tr>
+  </table>
+
+  <h3>EtCO₂ 波形判讀</h3>
+
+  <div class="waveform-grid">
+    <!-- Normal -->
+    <div class="waveform-card">
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="240" height="110" fill="#F7F6F3" rx="6"/>
+        <line x1="20" y1="90" x2="225" y2="90" stroke="#ccc" stroke-width="1"/>
+        <line x1="20" y1="10" x2="20" y2="90" stroke="#ccc" stroke-width="1"/>
+        <text x="8" y="16" font-size="7" fill="#999">CO₂</text>
+        <!-- waveform 1 -->
+        <polyline points="25,88 40,88 45,30 90,28 95,88 115,88" fill="none" stroke="#1B6B5A" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- waveform 2 -->
+        <polyline points="115,88 130,88 135,30 180,28 185,88 205,88" fill="none" stroke="#1B6B5A" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="60" y="22" font-size="7" fill="#1B6B5A" font-weight="700">35–45</text>
+      </svg>
+      <h4>正常波形</h4>
+      <p>方形波、基線歸零<br>EtCO₂ 35–45 mmHg</p>
+    </div>
+
+    <!-- Shark Fin -->
+    <div class="waveform-card">
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="240" height="110" fill="#F7F6F3" rx="6"/>
+        <line x1="20" y1="90" x2="225" y2="90" stroke="#ccc" stroke-width="1"/>
+        <line x1="20" y1="10" x2="20" y2="90" stroke="#ccc" stroke-width="1"/>
+        <text x="8" y="16" font-size="7" fill="#999">CO₂</text>
+        <!-- shark fin 1 -->
+        <polyline points="25,88 40,88 80,30 95,88 110,88" fill="none" stroke="#B8450D" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- shark fin 2 -->
+        <polyline points="110,88 125,88 165,30 180,88 200,88" fill="none" stroke="#B8450D" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="140" y="22" font-size="7" fill="#B8450D" font-weight="700">Shark Fin</text>
+      </svg>
+      <h4>小氣道阻塞（鯊魚鰭）</h4>
+      <p>無高原期、斜升<br>氣喘 / COPD / 支氣管痙攣</p>
+    </div>
+
+    <!-- Low amplitude -->
+    <div class="waveform-card">
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="240" height="110" fill="#F7F6F3" rx="6"/>
+        <line x1="20" y1="90" x2="225" y2="90" stroke="#ccc" stroke-width="1"/>
+        <line x1="20" y1="10" x2="20" y2="90" stroke="#ccc" stroke-width="1"/>
+        <text x="8" y="16" font-size="7" fill="#999">CO₂</text>
+        <!-- low amp waveform -->
+        <polyline points="25,88 40,88 45,70 90,68 95,88 115,88" fill="none" stroke="#A42030" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="115,88 130,88 135,70 180,68 185,88 205,88" fill="none" stroke="#A42030" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="55" y="62" font-size="7" fill="#A42030" font-weight="700">&lt;20</text>
+        <!-- ghost normal -->
+        <polyline points="25,88 40,88 45,30 90,28 95,88 115,88" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="3"/>
+      </svg>
+      <h4>心輸出量低下</h4>
+      <p>形態正常但振幅極低<br>休克 / 肺栓塞 / 心跳停止</p>
+    </div>
+
+    <!-- Rebreathing -->
+    <div class="waveform-card">
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="240" height="110" fill="#F7F6F3" rx="6"/>
+        <line x1="20" y1="90" x2="225" y2="90" stroke="#ccc" stroke-width="1"/>
+        <line x1="20" y1="10" x2="20" y2="90" stroke="#ccc" stroke-width="1"/>
+        <text x="8" y="16" font-size="7" fill="#999">CO₂</text>
+        <!-- elevated baseline -->
+        <polyline points="25,88 40,80 45,28 90,26 95,78 115,76" fill="none" stroke="#6B4FA0" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="115,76 130,72 135,22 180,20 185,70 205,68" fill="none" stroke="#6B4FA0" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- baseline drift line -->
+        <line x1="25" y1="88" x2="205" y2="68" stroke="#6B4FA0" stroke-width="1" stroke-dasharray="3"/>
+        <text x="145" y="62" font-size="7" fill="#6B4FA0" font-weight="700">基線↑</text>
+      </svg>
+      <h4>CO₂ 重複呼吸</h4>
+      <p>基線上升不歸零<br>儀器感應問題 / 流量不足</p>
+    </div>
+
+    <!-- Hypoventilation -->
+    <div class="waveform-card">
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="240" height="110" fill="#F7F6F3" rx="6"/>
+        <line x1="20" y1="90" x2="225" y2="90" stroke="#ccc" stroke-width="1"/>
+        <line x1="20" y1="10" x2="20" y2="90" stroke="#ccc" stroke-width="1"/>
+        <text x="8" y="16" font-size="7" fill="#999">CO₂</text>
+        <!-- wide stretched waveform with high amplitude -->
+        <polyline points="25,88 45,88 50,20 110,18 115,88 145,88" fill="none" stroke="#B8450D" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="145,88 165,88 170,20 225,18" fill="none" stroke="#B8450D" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- ghost normal for comparison -->
+        <polyline points="25,88 40,88 45,30 90,28 95,88 115,88" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="3"/>
+        <text x="75" y="14" font-size="7" fill="#B8450D" font-weight="700">&gt;45</text>
+      </svg>
+      <h4>低通氣（Hypoventilation）</h4>
+      <p>方形波但振幅高（EtCO₂ &gt; 45）<br>波形間距寬（呼吸速率慢）<br>鎮靜過深 / 呼吸抑制</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ 8. 危機處理 ════════════════ -->
+<div class="section page-break">
+  <h2>八、危機處理</h2>
+
+  <h3>常見不良事件發生率（每 1,000 例）</h3>
+  <table class="compact-table">
+    <tr><th>事件</th><th>發生率</th><th>嚴重度</th></tr>
+    <tr><td>低血氧（Hypoxia 總計）</td><td>40.2</td><td>⚠️ 常見</td></tr>
+    <tr><td>　SpO₂ &lt; 90%</td><td>23.0</td><td>⚠️</td></tr>
+    <tr><td>嘔吐</td><td>16.4</td><td>⚠️</td></tr>
+    <tr><td>低血壓</td><td>15.2</td><td>⚠️</td></tr>
+    <tr><td>呼吸暫停</td><td>12.4</td><td>⚠️</td></tr>
+    <tr><td>喉痙攣</td><td>4.2</td><td>🔴 嚴重</td></tr>
+    <tr><td>嚴重嗆咳甚至是吸入性肺炎</td><td>1.2</td><td>🔴</td></tr>
+    <tr><td>插管需求</td><td>1.6</td><td>🔴</td></tr>
+    <tr><td>心血管抑制 / 心跳停止</td><td>&lt; 1（極罕見）</td><td>🔴</td></tr>
+  </table>
+  <div class="callout callout-info">💡 根據 Bellolio et al. 2016 系統性回顧（9,652 例 ED PSA），未報告任何死亡案例。嚴重心血管事件（心跳停止）在 ED PSA 中極為罕見。另一項大型回顧性研究（Karamnov et al., 140,000+ 例中度鎮靜）中，僅 52 件安全事件被辨識，最常見為過度鎮靜導致呼吸暫停需使用拮抗劑或 BVM，未報告需要非預期心肺復甦之案例。整體而言，ED PSA 需要非預期急救復甦的發生率極低（&lt; 0.1%）。</div>
+
+  <!-- ── 低血氧三階段 ── -->
+  <h3>8-1. 低血氧處理三階段</h3>
+  <div class="flowchart-wrap">
+    <svg viewBox="0 0 820 170" xmlns="http://www.w3.org/2000/svg" style="font-family:var(--font-sans)">
+      <!-- Stage 1 -->
+      <rect x="5" y="10" width="240" height="150" rx="10" fill="#E8F4F0" stroke="#1B6B5A" stroke-width="2"/>
+      <text x="125" y="34" text-anchor="middle" font-size="13" font-weight="900" fill="#1B6B5A">Stage 1：Self-Rescue</text>
+      <text x="20" y="56" font-size="11" fill="#333">1. 通知團隊</text>
+      <text x="20" y="74" font-size="11" fill="#333">2. 停止鎮靜藥物和手術</text>
+      <text x="20" y="92" font-size="11" fill="#333">3. 刺激患者</text>
+      <text x="20" y="110" font-size="11" fill="#333">4. RAVOC 評估</text>
+      <text x="20" y="128" font-size="11" fill="#333">5. Head tilt / Jaw thrust</text>
+      <text x="20" y="146" font-size="11" fill="#333">6. OPA/NPA → BVM ± PEEP</text>
+      <!-- Arrow -->
+      <path d="M250,85 L280,85" stroke="#1B6B5A" stroke-width="2" marker-end="url(#arrowG)"/>
+      <!-- Stage 2 -->
+      <rect x="285" y="25" width="230" height="120" rx="10" fill="#FFF3EC" stroke="#B8450D" stroke-width="2"/>
+      <text x="400" y="50" text-anchor="middle" font-size="13" font-weight="900" fill="#B8450D">Stage 2：Rescue</text>
+      <text x="300" y="72" font-size="11" fill="#333">1. 通知自救失敗</text>
+      <text x="300" y="90" font-size="11" fill="#333">2. 呼叫幫助</text>
+      <text x="300" y="108" font-size="11" fill="#333">3. 停止手術</text>
+      <text x="300" y="126" font-size="11" fill="#333">4. 給予拮抗劑</text>
+      <!-- Arrow -->
+      <path d="M520,85 L550,85" stroke="#B8450D" stroke-width="2" marker-end="url(#arrowO)"/>
+      <!-- Stage 3 -->
+      <rect x="555" y="25" width="250" height="120" rx="10" fill="#FFF0F2" stroke="#A42030" stroke-width="2"/>
+      <text x="680" y="50" text-anchor="middle" font-size="13" font-weight="900" fill="#A42030">Stage 3：Resuscitation</text>
+      <text x="570" y="72" font-size="11" fill="#333">1. 救助失敗</text>
+      <text x="570" y="90" font-size="11" fill="#333">2. 啟動 ACLS</text>
+      <text x="570" y="108" font-size="11" fill="#333">3. 插管 / 靜脈通道 / 除顫</text>
+      <text x="570" y="126" font-size="11" fill="#333">4. 危機資源管理</text>
+      <defs>
+        <marker id="arrowG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#1B6B5A"/></marker>
+        <marker id="arrowO" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#B8450D"/></marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- ── 舌頭後倒 ── -->
+  <h3>8-2. 舌頭後倒處理</h3>
+  <div class="step-flow">
+    <div class="step-box">擺位<br><small>Sniffing position</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">徒手開氣道<br><small>Head-tilt-Chin-lift<br>或 Jaw-thrust</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">NPA / OPA</div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">BVM ± PEEP<br><small>SpO₂ 仍 &lt;90%</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box" style="background:var(--c-warn)">拮抗劑<br>/ LMA / 插管</div>
+  </div>
+
+  <!-- ── 喉痙攣 ── -->
+  <h3>8-3. 喉痙攣（Laryngospasm）處理流程</h3>
+  <div class="callout callout-info">發生率 4.2/1,000。Risk factors：年輕、URI、GERD、氣道分泌物、Propofol 使用。</div>
+  <div class="flowchart-wrap">
+    <svg viewBox="0 0 760 440" xmlns="http://www.w3.org/2000/svg" style="font-family:var(--font-sans)">
+      <defs>
+        <marker id="a1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#333"/></marker>
+      </defs>
+      <!-- Step 1 -->
+      <rect x="230" y="5" width="300" height="44" rx="8" fill="#2D5FA0" stroke="none"/>
+      <text x="380" y="32" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Step 1：早期辨識 — Stridor / EtCO₂ 消失 / SpO₂↓</text>
+      <line x1="380" y1="49" x2="380" y2="70" stroke="#333" stroke-width="1.5" marker-end="url(#a1)"/>
+      <!-- Step 2 -->
+      <rect x="220" y="72" width="320" height="44" rx="8" fill="#1B6B5A" stroke="none"/>
+      <text x="380" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Step 2：CPAP + 100% O₂ + 雙手 Jaw Thrust</text>
+      <line x1="380" y1="116" x2="380" y2="137" stroke="#333" stroke-width="1.5" marker-end="url(#a1)"/>
+      <!-- Step 3 decision -->
+      <polygon points="380,139 530,175 380,211 230,175" fill="#FFF3EC" stroke="#B8450D" stroke-width="2"/>
+      <text x="380" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#B8450D">評估通氣</text>
+      <text x="380" y="186" text-anchor="middle" font-size="10" fill="#B8450D">聽診 / BVM 起伏 / EtCO₂</text>
+      <!-- Partial branch -->
+      <line x1="230" y1="175" x2="100" y2="175" stroke="#333" stroke-width="1.5"/>
+      <line x1="100" y1="175" x2="100" y2="215" stroke="#333" stroke-width="1.5" marker-end="url(#a1)"/>
+      <rect x="10" y="217" width="180" height="60" rx="8" fill="#E8F4F0" stroke="#1B6B5A" stroke-width="1.5"/>
+      <text x="100" y="237" text-anchor="middle" font-size="11" font-weight="700" fill="#1B6B5A">部分喉痙攣</text>
+      <text x="100" y="254" text-anchor="middle" font-size="10" fill="#333">排除刺激 + 加深麻醉</text>
+      <text x="100" y="268" text-anchor="middle" font-size="10" fill="#333">Propofol ≥ 2–3 mg/kg IV</text>
+      <!-- Complete branch -->
+      <line x1="530" y1="175" x2="620" y2="175" stroke="#333" stroke-width="1.5"/>
+      <line x1="620" y1="175" x2="620" y2="215" stroke="#333" stroke-width="1.5" marker-end="url(#a1)"/>
+      <rect x="490" y="217" width="260" height="44" rx="8" fill="#FFF0F2" stroke="#A42030" stroke-width="1.5"/>
+      <text x="620" y="237" text-anchor="middle" font-size="12" font-weight="700" fill="#A42030">完全喉痙攣（≤ 30 秒嘗試）</text>
+      <text x="620" y="254" text-anchor="middle" font-size="10" fill="#333">Propofol ≥ 2–3 mg/kg IV 加深麻醉</text>
+      <line x1="620" y1="261" x2="620" y2="283" stroke="#333" stroke-width="1.5" marker-end="url(#a1)"/>
+      <!-- 無改善 — single box with both IV/IM -->
+      <rect x="460" y="285" width="320" height="70" rx="8" fill="#EDF3FC" stroke="#2D5FA0" stroke-width="2"/>
+      <text x="620" y="305" text-anchor="middle" font-size="12" font-weight="700" fill="#2D5FA0">無改善 → Succinylcholine</text>
+      <text x="620" y="323" text-anchor="middle" font-size="11" fill="#333">IV：1–2 mg/kg</text>
+      <text x="620" y="340" text-anchor="middle" font-size="11" fill="#333">IM：4 mg/kg（無 IV 時）</text>
+      <line x1="620" y1="355" x2="620" y2="377" stroke="#333" stroke-width="1.5" marker-end="url(#a1)"/>
+      <!-- bottom -->
+      <rect x="470" y="379" width="300" height="48" rx="8" fill="#A42030" stroke="none"/>
+      <text x="620" y="400" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">仍無改善 → CPR + ALS</text>
+      <text x="620" y="417" text-anchor="middle" font-size="11" fill="#fff">嘗試插管 / 外科氣道</text>
+    </svg>
+  </div>
+
+  <!-- ── 嚴重嗆咳甚至是吸入性肺炎 ── -->
+  <h3>8-4. 嚴重嗆咳甚至是吸入性肺炎</h3>
+  <div class="callout callout-danger">🚨 首要任務：Minimise aspiration while maintaining SpO₂</div>
+  <div class="step-flow">
+    <div class="step-box">高流量給氧</div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">Yankauer 抽吸</div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">Head down<br>Left lateral</div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">Cricoid pressure<br><small>（未主動嘔吐時）</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box" style="background:var(--c-danger)">預防吸入性肺炎<br>氣道痙攣 / 窒息</div>
+  </div>
+
+  <!-- ── 支氣管痙攣 ── -->
+  <h3>8-5. 支氣管痙攣（Bronchospasm）</h3>
+  <p>臨床表現：呼氣延長 + Expiratory wheezing + EtCO₂「鯊魚鰭」波形</p>
+  <div class="step-flow">
+    <div class="step-box">切換 100% O₂</div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">手動換氣<br>停止手術</div>
+    <div class="step-arrow">→</div>
+    <div class="step-box">排除過敏<br>排除 Laryngospasm</div>
+    <div class="step-arrow">→</div>
+    <div class="step-box" style="background:var(--c-info)">Salbutamol INHA<br>+ Ipratropium</div>
+  </div>
+  <div class="callout callout-info">
+    💡 進階用藥：Hydrocortisone 200 mg IV、MgSO₄ 10 mmol IV over 20 min。
+  </div>
+</div>
+
+<!-- ════════════════ 9. CICO ════════════════ -->
+<div class="section page-break">
+  <h2>九、CICO 與外科氣道</h2>
+
+  <h3>Vortex 方法 — 循序漸進救助</h3>
+  <div class="callout callout-danger">🚨 核心原則：每種技術最多 3 次嘗試 → 快速轉換 → 監測 SpO₂ / EtCO₂</div>
+
+  <div class="flowchart-wrap">
+    <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" style="font-family:var(--font-sans)">
+      <defs>
+        <marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#333"/></marker>
+      </defs>
+      <!-- Layer A -->
+      <rect x="5" y="30" width="155" height="140" rx="10" fill="#E8F4F0" stroke="#1B6B5A" stroke-width="2"/>
+      <text x="82" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#1B6B5A">A 層：插管</text>
+      <text x="82" y="78" text-anchor="middle" font-size="11" fill="#333">直視喉鏡</text>
+      <text x="82" y="95" text-anchor="middle" font-size="11" fill="#333">C-Mac / Stylet</text>
+      <text x="82" y="112" text-anchor="middle" font-size="11" fill="#333">Bougie</text>
+      <text x="82" y="136" text-anchor="middle" font-size="10" fill="#999">最多嘗試 3 次</text>
+      <!-- Arrow -->
+      <path d="M165,100 L195,100" stroke="#333" stroke-width="1.5" marker-end="url(#a2)"/>
+      <text x="180" y="93" font-size="9" fill="#A42030">失敗</text>
+      <!-- Layer B -->
+      <rect x="200" y="30" width="155" height="140" rx="10" fill="#EDF3FC" stroke="#2D5FA0" stroke-width="2"/>
+      <text x="277" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#2D5FA0">B 層：SAD</text>
+      <text x="277" y="78" text-anchor="middle" font-size="11" fill="#333">第二代 LMA</text>
+      <text x="277" y="95" text-anchor="middle" font-size="11" fill="#333">改變類型 / 大小</text>
+      <text x="277" y="112" text-anchor="middle" font-size="11" fill="#333">充放氣調整</text>
+      <text x="277" y="136" text-anchor="middle" font-size="10" fill="#999">最多嘗試 3 次</text>
+      <!-- Arrow -->
+      <path d="M360,100 L390,100" stroke="#333" stroke-width="1.5" marker-end="url(#a2)"/>
+      <text x="375" y="93" font-size="9" fill="#A42030">失敗</text>
+      <!-- Layer C -->
+      <rect x="395" y="30" width="155" height="140" rx="10" fill="#FFF3EC" stroke="#B8450D" stroke-width="2"/>
+      <text x="472" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#B8450D">C 層：Face Mask</text>
+      <text x="472" y="78" text-anchor="middle" font-size="11" fill="#333">雙人技術</text>
+      <text x="472" y="95" text-anchor="middle" font-size="11" fill="#333">OPA / NPA</text>
+      <text x="472" y="112" text-anchor="middle" font-size="11" fill="#333">最佳擺位</text>
+      <text x="472" y="136" text-anchor="middle" font-size="10" fill="#999">最多嘗試 3 次</text>
+      <!-- Arrow -->
+      <path d="M555,100 L585,100" stroke="#333" stroke-width="1.5" marker-end="url(#a2)"/>
+      <text x="570" y="93" font-size="9" fill="#A42030">失敗</text>
+      <!-- Layer D -->
+      <rect x="590" y="30" width="125" height="140" rx="10" fill="#A42030" stroke="none"/>
+      <text x="652" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#fff">D 層：CICO</text>
+      <text x="652" y="80" text-anchor="middle" font-size="11" fill="#fff">外科氣道</text>
+      <text x="652" y="100" text-anchor="middle" font-size="11" fill="#fff">環甲膜切開術</text>
+      <text x="652" y="120" text-anchor="middle" font-size="11" fill="#fff">Needle / Surgical</text>
+      <text x="652" y="145" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.7)">最後手段</text>
+    </svg>
+  </div>
+
+  <h3>環甲膜切開術步驟</h3>
+  <table>
+    <tr><th>步驟</th><th>動作</th><th>要點</th></tr>
+    <tr><td>1</td><td>暴露頸部、觸診中線</td><td>識別環甲膜</td></tr>
+    <tr><td>2</td><td>縱向皮膚切口（8 cm）</td><td>沿中線，遠離表面血管</td></tr>
+    <tr><td>3</td><td>觸診確認環甲膜</td><td>—</td></tr>
+    <tr><td>4</td><td>水平穿刺環甲膜</td><td>#10 刀片</td></tr>
+    <tr><td>5</td><td>旋轉刀片 90°（朝腳側）</td><td>向自己拉動打開氣道</td></tr>
+    <tr><td>6</td><td>插入 Bougie</td><td>沿刀片滑入</td></tr>
+    <tr><td>7</td><td>套入潤滑 6.0 ET tube</td><td>經 Bougie 引導</td></tr>
+    <tr><td>8</td><td>充氣囊 → 通氣 → 確認</td><td>CO₂ + 呼吸音</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════ 10. 恢復出院 ════════════════ -->
+<div class="section">
+  <h2>十、恢復與出院標準</h2>
+
+  <h3>Aldrete 評分（≥ 8 分可出院）</h3>
+  <table>
+    <tr><th>項目</th><th>2 分</th><th>1 分</th><th>0 分</th></tr>
+    <tr><td><strong>呼吸</strong></td><td>能咳嗽或深呼吸</td><td>淺呼吸或呼吸困難</td><td>—</td></tr>
+    <tr><td><strong>SpO₂</strong></td><td>室內空氣 &gt; 92%</td><td>需吸氧維持 &gt; 90%</td><td>吸氧仍 &lt; 90%</td></tr>
+    <tr><td><strong>意識</strong></td><td>完全清醒</td><td>呼喚可喚醒</td><td>無反應</td></tr>
+    <tr><td><strong>循環</strong></td><td>BP 差 ≤ 20 mmHg</td><td>差 20–50 mmHg</td><td>差 &gt; 50 mmHg</td></tr>
+    <tr><td><strong>活動</strong></td><td>四肢均可活動</td><td>僅兩肢可活動</td><td>無法活動</td></tr>
+  </table>
+
+  <h3>出院注意事項</h3>
+  <ul>
+    <li>不得自行駕車，需有成人陪同</li>
+    <li>提供書面與口頭出院指導（飲食、活動、用藥、回診）</li>
+    <li>包含 24 小時聯絡電話</li>
+    <li>出院後 24 小時內避免：駕駛、操作重型機械、飲酒、做法律約束力決定</li>
+  </ul>
+</div>
+
+<!-- ════════════════ 11. 特殊族群 ════════════════ -->
+<div class="section">
+  <h2>十一、特殊族群</h2>
+
+  <h3>肥胖病人劑量依據</h3>
+  <table>
+    <tr><th>計算依據</th><th>適用藥物</th></tr>
+    <tr><td><strong>Ideal body weight (IBW)</strong></td><td>Propofol、Ketamine</td></tr>
+    <tr><td><strong>Total body weight (TBW)</strong></td><td>Remimazolam（BZD 類）</td></tr>
+  </table>
+  <p>Dexmedetomidine 建議參考 IBW 並從低劑量起始。</p>
+
+  <h3>OSA 患者</h3>
+  <ul>
+    <li>程序鎮靜時併發症風險增加：上呼道阻塞、高血壓發作、心律不整</li>
+    <li>術前應以篩檢工具評估 OSA 嚴重度</li>
+    <li>使用 CPAP 者應於操作中繼續使用</li>
+  </ul>
+
+  <h3>CT vs MRI 選藥</h3>
+  <table>
+    <tr><th>情境</th><th>可選藥物</th></tr>
+    <tr><td>CT 檢查</td><td>Propofol、Dexmedetomidine、Ketamine、Remimazolam</td></tr>
+    <tr><td>MRI 檢查</td><td>Propofol、Dexmedetomidine（注意 MRI 相容設備）</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════ 12. RAVOC + CRM ════════════════ -->
+<div class="section page-break">
+  <h2>十二、RAVOC 評估框架與危機資源管理</h2>
+
+  <h3>RAVOC 口訣</h3>
+  <div class="flowchart-wrap">
+    <svg viewBox="0 0 700 80" xmlns="http://www.w3.org/2000/svg" style="font-family:var(--font-sans)">
+      <rect x="5" y="10" width="120" height="60" rx="8" fill="#A42030"/>
+      <text x="65" y="36" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">R</text>
+      <text x="65" y="56" text-anchor="middle" font-size="10" fill="#fff">Responsiveness</text>
+
+      <rect x="140" y="10" width="120" height="60" rx="8" fill="#B8450D"/>
+      <text x="200" y="36" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">A</text>
+      <text x="200" y="56" text-anchor="middle" font-size="10" fill="#fff">Airway</text>
+
+      <rect x="275" y="10" width="120" height="60" rx="8" fill="#1B6B5A"/>
+      <text x="335" y="36" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">V</text>
+      <text x="335" y="56" text-anchor="middle" font-size="10" fill="#fff">Ventilation</text>
+
+      <rect x="410" y="10" width="120" height="60" rx="8" fill="#2D5FA0"/>
+      <text x="470" y="36" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">O</text>
+      <text x="470" y="56" text-anchor="middle" font-size="10" fill="#fff">Oxygenation</text>
+
+      <rect x="545" y="10" width="120" height="60" rx="8" fill="#6B4FA0"/>
+      <text x="605" y="36" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">C</text>
+      <text x="605" y="56" text-anchor="middle" font-size="10" fill="#fff">Circulation</text>
+    </svg>
+  </div>
+
+  <h3>CRM 核心原則（精選）</h3>
+  <div class="two-col">
+    <div>
+      <ol>
+        <li><strong>及早呼叫幫助</strong> — 寧可多叫</li>
+        <li><strong>預期與計畫</strong> — 溝通應變計畫</li>
+        <li><strong>瞭解環境</strong> — 熟悉設備位置</li>
+        <li><strong>使用所有可用資訊</strong></li>
+        <li><strong>分配注意力明智</strong> — 避免隧道視覺</li>
+      </ol>
+    </div>
+    <div>
+      <ol start="6">
+        <li><strong>動員資源</strong></li>
+        <li><strong>使用認知輔助工具</strong> — Emergency Manual</li>
+        <li><strong>有效溝通</strong> — Close-loop communication</li>
+        <li><strong>分配工作負荷</strong></li>
+        <li><strong>建立角色清晰</strong> — One voice 原則</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>PSA 前準備清單</h3>
+  <table>
+    <tr><th>項目</th><th>確認</th></tr>
+    <tr><td>患者評估與同意</td><td>☐</td></tr>
+    <tr><td>監測設備檢查（SpO₂ / EtCO₂ / BP / ECG）</td><td>☐</td></tr>
+    <tr><td>氧氣和抽吸裝置就位</td><td>☐</td></tr>
+    <tr><td>藥物齊全且標籤正確</td><td>☐</td></tr>
+    <tr><td>氣道管理工具備妥（OPA / NPA / BVM / LMA / ETT / Bougie）</td><td>☐</td></tr>
+    <tr><td>拮抗劑已準備（Flumazenil）</td><td>☐</td></tr>
+    <tr><td>Succinylcholine 劑量已計算、ET tube size 已記錄</td><td>☐</td></tr>
+    <tr><td>團隊角色明確分配</td><td>☐</td></tr>
+    <tr><td>通訊線路確認</td><td>☐</td></tr>
+  </table>
+
+  <h3>併發症管理的黃金時間</h3>
+  <div class="step-flow">
+    <div class="step-box" style="background:#2D5FA0">早期識別<br><small>0–30 秒</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box" style="background:#1B6B5A">初期干預<br><small>30–60 秒</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box" style="background:#B8450D">升級處理<br><small>1–3 分鐘</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box" style="background:#6B4FA0">專家介入<br><small>3–5 分鐘</small></div>
+    <div class="step-arrow">→</div>
+    <div class="step-box" style="background:#A42030">外科氣道<br><small>&gt;5 分鐘無改善</small></div>
+  </div>
+</div>
+
+<!-- ════════════════ LAST (bonus) ════════════════ -->
+<div class="section">
+  <h2>附錄：局部麻醉劑全身毒性（LAST）速查</h2>
+  <div class="callout callout-danger">
+    🚨 罕見但致命（發生率 ~0.03%）。CNS 毒性佔 77%（癲癇最常見），心血管毒性佔 55%。
+  </div>
+  <h4>ASRA 治療摘要</h4>
+  <ol>
+    <li>呼叫支援，取得 LAST 急救包</li>
+    <li>氣道管理 — 預防低血氧、高碳酸血症</li>
+    <li><strong>20% 脂肪乳劑（ILE）</strong>：&gt; 70 kg → 100 mL bolus；&lt; 70 kg → 1.5 mL/kg；最大 12 mL/kg。<strong>不可用 Propofol 替代！</strong></li>
+    <li>癲癇 → BZD 首選</li>
+    <li>心跳停止 → Epi ≤ 1 μg/kg（小劑量）、Amiodarone。<strong>禁用：</strong>Vasopressin、β-blocker、鈣離子阻斷劑、Lidocaine</li>
+    <li>穩定後觀察 2–6 小時</li>
+  </ol>
+</div>
+
+<footer>
+  本整理為台灣急診醫學會程序鎮靜指南之節錄。僅供專業人士參考。最終內容以正式發布之版本為主。<br>
+  整理日期：2026 年 4 月
+</footer>
+
+</div>
+</body>
+</html>
