@@ -44,18 +44,25 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--c-bg);
   color: var(--c-text);
   line-height: 1.7;
   font-size: 15px;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 .container {
   max-width: 960px;
   margin: 0 auto;
   padding: 20px;
+  overflow-x: hidden;
 }
 
 /* ── COVER ── */
@@ -332,8 +339,25 @@ tr:nth-child(even) td { background: #F7F6F3; }
   .two-col { grid-template-columns: 1fr; }
   .cover { padding: 40px 24px; }
   .cover h1 { font-size: 26px; }
-  .section { padding: 24px 20px; }
+  .section { padding: 24px 16px; }
   .toc ol { columns: 1; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  .flowchart-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .step-flow { flex-wrap: wrap; gap: 6px; }
+  .step-box { min-width: 70px; font-size: 11px; padding: 6px 10px; }
+  .step-arrow { font-size: 16px; padding: 0 2px; }
+  .pill-row { gap: 4px; }
+  .pill { font-size: 11px; padding: 2px 8px; }
+  .drug-card-body { padding: 14px 16px; }
+  .top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+  .top-nav .nav-title { font-size: 12px; }
+  .top-nav .nav-buttons { width: 100%; display: flex; gap: 8px; }
+  .top-nav a { flex: 1; text-align: center; font-size: 12px; padding: 6px 10px; }
 }
 
 .compact-table td, .compact-table th { padding: 5px 10px; font-size: 12px; }
@@ -374,13 +398,14 @@ footer {
   transition: background 0.2s;
 }
 .top-nav a:hover { background: #24876F; }
+.nav-buttons { display: flex; gap: 8px; }
 </style>
 </head>
 <body>
 <div class="top-nav">
   <span class="nav-title">20260419 急診醫學會外傷處置課程 PSA 專題</span>
-  <div>
-    <a href="index.html" style="margin-right:8px;">📋 講義</a>
+  <div class="nav-buttons">
+    <a href="index.html">📋 講義</a>
     <a href="quiz.html">📝 測驗</a>
   </div>
 </div>
@@ -1181,6 +1206,23 @@ footer {
     <div class="step-arrow">→</div>
     <div class="step-box" style="background:#A42030">外科氣道<br><small>&gt;5 分鐘無改善</small></div>
   </div>
+</div>
+
+<!-- ════════════════ LAST (bonus) ════════════════ -->
+<div class="section">
+  <h2>附錄：局部麻醉劑全身毒性（LAST）速查</h2>
+  <div class="callout callout-danger">
+    🚨 罕見但致命（發生率 ~0.03%）。CNS 毒性佔 77%（癲癇最常見），心血管毒性佔 55%。
+  </div>
+  <h4>ASRA 治療摘要</h4>
+  <ol>
+    <li>呼叫支援，取得 LAST 急救包</li>
+    <li>氣道管理 — 預防低血氧、高碳酸血症</li>
+    <li><strong>20% 脂肪乳劑（ILE）</strong>：&gt; 70 kg → 100 mL bolus；&lt; 70 kg → 1.5 mL/kg；最大 12 mL/kg。<strong>不可用 Propofol 替代！</strong></li>
+    <li>癲癇 → BZD 首選</li>
+    <li>心跳停止 → Epi ≤ 1 μg/kg（小劑量）、Amiodarone。<strong>禁用：</strong>Vasopressin、β-blocker、鈣離子阻斷劑、Lidocaine</li>
+    <li>穩定後觀察 2–6 小時</li>
+  </ol>
 </div>
 
 <footer>
