@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台灣急診醫學會鎮靜指南課程測驗</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,'Noto Sans TC',sans-serif;background:#f5f0e8;color:#1a1a2e;line-height:1.9;font-size:15px}
+
+/* ── masthead ── */
+.masthead{background:#1a1a2e;color:#f5f0e8;padding:48px 40px 38px;position:relative}
+.masthead::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:#8b1a1a}
+.masthead-inner{max-width:860px;margin:0 auto}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#c8bca8;text-decoration:none;font-size:12px;font-weight:500;padding:6px 14px;border-radius:4px;letter-spacing:.04em;margin-bottom:18px;transition:background .15s,color .15s;width:fit-content}
+.home-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+.masthead-label{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#a09080;margin-bottom:14px}
+.masthead h1{font-size:26px;font-weight:700;line-height:1.35;margin-bottom:8px}
+.masthead h1 span{color:#c0392b}
+.masthead-sub{font-size:13px;color:#b0a090;margin-top:6px}
+.meta-row{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.meta-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:4px;padding:4px 12px;font-size:11px;color:#c8bca8}
+
+/* ── sticky progress ── */
+.progress-wrap{background:#fff;border-bottom:1px solid #c8bca8;padding:10px 24px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.progress-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.progress-label{font-size:12px;color:#6b6b6b;white-space:nowrap}
+.progress-bar-track{flex:1;height:6px;background:#e0d8cc;border-radius:10px;overflow:hidden}
+.progress-bar-fill{height:100%;background:#8b1a1a;border-radius:10px;width:0%;transition:width .4s ease}
+.score-live{font-size:12px;font-weight:600;color:#2c3e6b;white-space:nowrap}
+
+/* ── main ── */
+.main{max-width:860px;margin:0 auto;padding:34px 24px 80px}
+
+/* ── section header ── */
+.section-header{display:flex;align-items:center;gap:14px;margin:46px 0 22px}
+.section-number{background:#8b1a1a;color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:.05em;white-space:nowrap}
+.section-title{font-size:16px;font-weight:700}
+.section-rule{flex:1;height:1px;background:#c8bca8}
+
+/* ── question card ── */
+.q-card{background:#fff;border:1px solid #c8bca8;border-radius:8px;margin-bottom:18px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.q-card.answered{box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.q-head{display:flex;align-items:flex-start;gap:14px;padding:18px 22px 14px;border-bottom:1px solid #eee}
+.q-num{background:#1a1a2e;color:#fff;font-size:12px;font-weight:700;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.q-num.correct-q{background:#2e7d32}
+.q-num.wrong-q{background:#c62828}
+.q-text{font-size:14.5px;font-weight:500;line-height:1.7}
+.q-body{padding:12px 22px 14px}
+
+/* ── options ── */
+.option{display:flex;align-items:flex-start;gap:12px;padding:9px 12px;border-radius:6px;margin-bottom:5px;font-size:14px;color:#333;cursor:pointer;border:1.5px solid transparent;transition:background .12s,border-color .12s;user-select:none}
+.option:hover:not(.locked){background:#f0ebe0;border-color:#c8bca8}
+.option.selected{background:#e8e0d0;border-color:#aaa}
+.option.locked{cursor:default}
+.option.show-correct{background:#e8f5e9;border-color:#2e7d32;color:#1b5e20;font-weight:600}
+.option.show-wrong{background:#ffebee;border-color:#c62828;color:#b71c1c;font-weight:600}
+.option-letter{font-weight:700;font-size:13px;flex-shrink:0;min-width:18px;margin-top:1px}
+.option-mark{margin-left:auto;font-size:15px;flex-shrink:0}
+
+/* ── submit btn ── */
+.q-footer{padding:0 22px 16px}
+.submit-btn{background:#1a1a2e;color:#fff;border:none;border-radius:6px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.04em;opacity:.35;pointer-events:none;transition:background .15s,opacity .15s}
+.submit-btn.ready{opacity:1;pointer-events:auto}
+.submit-btn.ready:hover{background:#2c3e6b}
+.submit-btn.hidden{display:none}
+
+/* ── answer reveal ── */
+.answer-block{margin:0 22px 16px;display:none}
+.answer-block.visible{display:block}
+.answer-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 12px;border-radius:20px;margin-bottom:10px;letter-spacing:.04em;color:#fff}
+.answer-badge.correct-badge{background:#2e7d32}
+.answer-badge.wrong-badge{background:#c62828}
+.explanation{background:#fdf6e3;border-left:3px solid #c8a84b;border-radius:0 4px 4px 0;padding:12px 16px;font-size:13px;color:#4a3800;line-height:1.8}
+.explanation strong{color:#8b1a1a}
+
+/* ── score panel ── */
+.score-panel{display:none;background:#1a1a2e;color:#fff;border-radius:10px;padding:36px 40px;margin:40px 0 20px;text-align:center}
+.score-panel.visible{display:block}
+.score-panel h2{font-size:22px;margin-bottom:10px}
+.score-big{font-size:60px;font-weight:700;color:#f5c842;line-height:1;margin:14px 0 4px}
+.score-sub{font-size:14px;color:#b0a090;margin-bottom:24px}
+.panel-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.restart-btn{background:#8b1a1a;color:#fff;border:none;border-radius:6px;padding:10px 24px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.04em;text-decoration:none;display:inline-block}
+.restart-btn:hover{background:#c0392b}
+.home-btn-panel{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#c8bca8;border-radius:6px;padding:10px 24px;font-size:13px;font-weight:600;text-decoration:none;display:inline-block;letter-spacing:.04em;transition:background .15s,color .15s}
+.home-btn-panel:hover{background:rgba(255,255,255,.22);color:#fff}
+
+/* ── footer ── */
+.footer{max-width:860px;margin:0 auto;padding:22px 24px 60px;border-top:1px solid #c8bca8}
+.disclaimer{font-size:12px;color:#6b6b6b;line-height:1.8;text-align:center;background:#fff;border:1px solid #c8bca8;border-radius:6px;padding:18px 24px}
+.disclaimer strong{display:block;font-size:13px;color:#1a1a2e;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <a href="index.html" class="home-btn">← 返回首頁</a>
+    <div class="masthead-label">Taiwan Emergency Medicine Society · PSA Training Program</div>
+    <h1>台灣急診醫學會<span>鎮靜指南</span>課程測驗</h1>
+    <div class="masthead-sub">Adult Procedural Sedation and Analgesia — Assessment Questions</div>
+    <div class="meta-row">
+      <span class="meta-pill">共 30 題</span>
+      <span class="meta-pill">單選題</span>
+      <span class="meta-pill">選答後即時解析</span>
+      <span class="meta-pill">繁體中文版</span>
+    </div>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">作答進度</span>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <span class="score-live" id="scoreLive">0 / 30</span>
+  </div>
+</div>
+
+<div class="main" id="quizMain"></div>
+
+<div class="footer">
+  <div class="disclaimer">
+    <strong>聲明 / Disclaimer</strong>
+    本試題為台灣急診醫學會程序鎮靜指南之節錄。僅供專業人士參考。最終內容以正式發布之版本為主。<br>
+    These questions are excerpted from the Taiwan Emergency Medicine Society PSA Guideline for educational purposes only. For professional reference. Final content subject to the officially published version.
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  QUESTION DATA
+// ═══════════════════════════════════════════════
+const SECTIONS = [
+  {
+    title: '第一部分',
+    subtitle: '藥物藥理與選擇',
+    questions: [1,2,3,4,5,6,7,8,9,10]
+  },
+  {
+    title: '第二部分',
+    subtitle: '術前評估與氣道',
+    questions: [11,12,13,14,15,16]
+  },
+  {
+    title: '第三部分',
+    subtitle: '監測與 EtCO₂ 波形判讀',
+    questions: [17,18,19,20,21,22]
+  },
+  {
+    title: '第四部分',
+    subtitle: '危機處理與氣道管理',
+    questions: [23,24,25,26,27,28]
+  },
+  {
+    title: '第五部分',
+    subtitle: '恢復標準、特殊族群與 CRM',
+    questions: [29,30]
+  }
+];
+
+const QUESTIONS = {
+  1: {
+    stem: '在 PSA 藥物中，哪一個藥物具有明顯的 <strong>muscle relaxant</strong> 效果，因此特別適合用於骨科復位（Reduction）？',
+    options: { A:'Etomidate', B:'Ketamine', C:'Fentanyl', D:'Propofol' },
+    answer: 'D',
+    explanation: 'Propofol 除鎮靜外尚具有顯著的肌肉鬆弛效果，是骨科復位的首選藥物。但需注意其<strong>無鎮痛作用</strong>，應合併 Fentanyl 使用，且對心血管及呼吸系統抑制明顯，應避免用於血流動力學不穩定患者。'
+  },
+  2: {
+    stem: '下列哪一種 PSA 藥物可透過 <strong>tissue esterase</strong> 代謝，不依賴肝腎功能，且具有可逆轉的拮抗劑？',
+    options: { A:'Propofol', B:'Dexmedetomidine', C:'Remimazolam', D:'Ketamine' },
+    answer: 'C',
+    explanation: 'Remimazolam（Byfavo）由 tissue esterase 水解代謝，不依賴肝腎，長時間使用無蓄積風險，且具有苯二氮平類拮抗劑 <strong>Flumazenil</strong> 可快速逆轉。此為其有別於 Propofol 的重要優勢。'
+  },
+  3: {
+    stem: '在肥胖（obesity）族群執行 PSA 時，下列哪一個藥物的初始劑量<strong>不須</strong>使用 Ideal Body Weight（IBW）或 Lean Body Weight 計算，而應使用 <strong>Total Body Weight（TBW）</strong>？',
+    options: { A:'Propofol', B:'Midazolam', C:'Etomidate', D:'Fentanyl' },
+    answer: 'B',
+    explanation: 'Midazolam（BZD 類）屬高度脂溶性藥物，分布容積隨脂肪組織增加而擴大，因此應依 <strong>Total Body Weight（TBW）</strong>計算。Propofol、Etomidate、Ketamine、Fentanyl 在肥胖患者則建議依 IBW 或 Lean Body Weight 給藥，以避免過度鎮靜及呼吸抑制。'
+  },
+  4: {
+    stem: 'Ketamine 對血流動力學的主要影響為何？此特性使其特別適合哪類病人？',
+    options: {
+      A:'降低心率與血壓，適合高血壓患者',
+      B:'升高心率與血壓（sympathomimetic），適合低血壓或血流動力學不穩定患者',
+      C:'對血壓無影響，但顯著抑制呼吸',
+      D:'降低血壓但升高心率'
+    },
+    answer: 'B',
+    explanation: 'Ketamine 透過交感神經刺激（sympathomimetic effect）使心率與血壓上升，對心血管功能有保護效果，因此適合<strong>低血壓</strong>或<strong>血流動力學不穩定</strong>的患者。同時因其保留呼吸道保護反射，也適合氣道困難的高風險病人及兒童（Level A 證據）。'
+  },
+  5: {
+    stem: 'Dexmedetomidine（Precedex）最重要的臨床優勢為何？',
+    options: {
+      A:'起效最快（&lt; 30 秒），適合需要緊急深度鎮靜的手術',
+      B:'具有強效鎮痛作用，不需搭配 opioid',
+      C:'不抑制呼吸，且能提供可配合指令的合作型鎮靜（cooperative sedation）',
+      D:'有特異性拮抗劑，可快速逆轉過度鎮靜'
+    },
+    answer: 'C',
+    explanation: 'Dexmedetomidine 最大優勢為<strong>不抑制呼吸</strong>，且能維持病人清醒並配合指令的「合作型鎮靜」，類似自然睡眠狀態。適合 MRI/CT 檢查、清醒插管等需要長時間靜止但不需完全無意識的操作。注意：<strong>無特異性拮抗劑</strong>，且老年人容易發生心搏過緩與低血壓。'
+  },
+  6: {
+    stem: '使用 Ketamine 進行 PSA 時，病患出現<strong>分泌物大量增加（bronchorrhea）</strong>，下列哪一種藥物最適合用於處理或預防此副作用？',
+    options: { A:'Naloxone', B:'Flumazenil', C:'Epinephrine', D:'Glycopyrrolate 或 Atropine' },
+    answer: 'D',
+    explanation: 'Ketamine 可刺激氣道分泌物增加（bronchorrhea），為其常見副作用之一。抗膽鹼藥物 <strong>Glycopyrrolate</strong>（首選，不易穿越血腦屏障）或 <strong>Atropine</strong> 可用於預防或處理此副作用，減少氣道分泌物。Naloxone 拮抗 opioid，Flumazenil 拮抗 BZD，均與此情境無關。'
+  },
+  7: {
+    stem: '關於 <strong>Ketofol（Ketamine + Propofol 混合）</strong>用於 PSA，下列何者正確？',
+    options: {
+      A:'建議使用於小兒族群，安全性已獲 Level A 證據支持',
+      B:'追加劑量時，Ketamine 與 Propofol 應維持同等比例同步追加',
+      C:'兩者血流動力學效應互補，Ketamine 維持血壓，Propofol 降低 emergence reaction',
+      D:'Ketofol 具有強效鎮痛作用，不需另外搭配 opioid 類藥物'
+    },
+    answer: 'C',
+    explanation: 'Ketofol（1:1 比例，各 0.5 mg/kg）的優勢在於<strong>互補效應</strong>：Propofol 的低血壓傾向被 Ketamine 的升壓效應抵銷；Propofol 同時可降低 Ketamine 所致的 emergence reaction 及嘔吐。<strong>不建議用於小兒</strong>（兒童 Ketamine 單用即有 Level A 安全證據）。追加時建議<strong>僅追加 Propofol</strong>，避免 Ketamine 蓄積。'
+  },
+  8: {
+    stem: 'Remimazolam 用於 PSA 時，其 <strong>PSA 建議劑量</strong>為何？（以台灣急診使用情境）',
+    options: {
+      A:'初始 2.5 mg bolus，追加 1.25 mg',
+      B:'初始 7.5 mg bolus，追加 2.5 mg',
+      C:'初始 5 mg bolus，追加 5 mg',
+      D:'初始 10 mg bolus，追加 2.5 mg'
+    },
+    answer: 'B',
+    explanation: '依台灣急診醫學會 PSA 指引，Remimazolam 的 PSA 建議劑量為<strong>初始 7.5 mg bolus，追加 2.5 mg</strong>。年長者（&gt; 65 歲）、ASA III-IV 級、體重 &lt; 50 kg 應降低劑量，合併使用 opioid 時亦須減少 31-65% 劑量。'
+  },
+  9: {
+    stem: 'PSA 藥物選擇應考量哪些因素？',
+    options: {
+      A:'操作程序所需時間及疼痛程度',
+      B:'病患的過去病史和身心狀況',
+      C:'團隊成員對藥物的熟悉程度及監測設備',
+      D:'以上皆是'
+    },
+    answer: 'D',
+    explanation: 'PSA 藥物選擇三大核心考量：① <strong>Procedure</strong>（疼痛程度、持續時間、需要固定程度）；② <strong>Patient</strong>（共病、焦慮程度）；③ <strong>Environment</strong>（監測設備、人員技能、人力配置）。三者缺一不可，需整合評估後選擇最適合的藥物組合。'
+  },
+  10: {
+    stem: '關於 <strong>Flumazenil</strong> 的使用，下列何者正確？',
+    options: {
+      A:'半衰期比 Midazolam 長，不需擔心 re-sedation',
+      B:'半衰期（約 40 分鐘）短於 Midazolam，可能發生 re-sedation，需持續監測',
+      C:'可用於逆轉 Propofol 或 Ketamine 的過度鎮靜',
+      D:'適合用於長期使用苯二氮平類的患者，以安全逆轉鎮靜效果'
+    },
+    answer: 'B',
+    explanation: 'Flumazenil 為 BZD 類（Midazolam、Remimazolam）的拮抗劑，半衰期約<strong>40 分鐘</strong>，短於 Midazolam，因此逆轉後可能再度鎮靜（re-sedation），須持續觀察。<strong>禁用於長期 BZD 使用者或癲癇病史者</strong>，可能誘發戒斷性癲癇。'
+  },
+  11: {
+    stem: '執行 PSA 前評估病人是否為<strong>困難插管或困難面罩通氣</strong>的重要項目包含？',
+    options: { A:'肥胖（Obese）', B:'Mallampati 分級', C:'打呼（Snore）病史', D:'以上皆是' },
+    answer: 'D',
+    explanation: '困難氣道評估需涵蓋多項因子：<strong>肥胖</strong>（尤其頸部結構）、<strong>Mallampati 3-4 級</strong>（後咽部可見度低）、<strong>打呼或 OSA 病史</strong>、甲頦距離 &lt; 3 cm、張口受限 &lt; 3 cm、頸部活動受限、巨舌症及下頷後縮等，均為重要預測因子。'
+  },
+  12: {
+    stem: '下列哪一項<strong>不是</strong>困難面罩通氣（Difficult Mask Ventilation）的預測因子？',
+    options: { A:'大鬍子', B:'大暴牙（牙齒前突）', C:'肥胖', D:'嚴重打鼾' },
+    answer: 'B',
+    explanation: '困難面罩通氣的預測因子包括：大鬍子（面罩密封困難）、肥胖（頸部脂肪多）、嚴重打呼（上呼吸道鬆弛）、無牙（臉部結構塌陷）、下巴內縮等。<strong>牙齒前突（暴牙）</strong>反而可能因顴面結構突出而有助於面罩密封，並非困難面罩通氣的預測因子。'
+  },
+  13: {
+    stem: '下列哪一項為 <strong>ASA 身體狀態 III 級</strong>的典型例子？',
+    options: {
+      A:'無系統性疾病的健康患者',
+      B:'心肌梗塞病史或代償性心臟衰竭',
+      C:'不穩定心絞痛或末期心臟衰竭',
+      D:'高血壓且藥物控制良好'
+    },
+    answer: 'B',
+    explanation: 'ASA 分級：I 級（健康）、II 級（輕度全身疾病，如控制良好的高血壓）、<strong>III 級（嚴重全身疾病，如心肌梗塞病史、代償性心衰竭、固定透析、未控制的糖尿病等）</strong>、IV 級（嚴重危及生命的疾病，如不穩定心絞痛、末期心衰竭）。'
+  },
+  14: {
+    stem: '下列哪一項檢查在區分<strong>呼吸道阻塞</strong>與<strong>呼吸抑制</strong>上最具特異性？',
+    options: {
+      A:'理學檢查（呼吸幅度評估）',
+      B:'脈搏血氧計（pulse oximeter）',
+      C:'呼氣末二氧化碳監測（capnography）',
+      D:'呼吸道阻塞與呼吸抑制本來就難以區分，無特異性工具'
+    },
+    answer: 'C',
+    explanation: '<strong>Capnography（EtCO₂）</strong>是最具特異性的工具：呼吸道阻塞時 EtCO₂ 波形消失但胸廓仍有起伏；呼吸抑制時波形振幅降低且頻率下降。Pulse oximeter 反應有延遲，且給氧後可能掩蓋低通氣狀態。ACEP Level B 建議 capnography 應作為 SpO₂ 的輔助監測。'
+  },
+  15: {
+    stem: '關於小兒 PSA 的<strong>非藥物言語緩解焦慮</strong>方式，下列何者最為適當？',
+    options: {
+      A:'「等你準備好跟我講，我們再開始。」',
+      B:'「數到三，跟我一起說『啊～～』」（引導參與感）',
+      C:'「對不起喔，這會痛一下喔！」',
+      D:'「不用擔心，沒事的。」'
+    },
+    answer: 'B',
+    explanation: '小兒焦慮緩解的最佳言語策略是<strong>引導孩子主動參與</strong>，分散注意力並給予掌控感。「數到三一起說」能讓孩子專注在合作任務而非恐懼。A 選項將決定權交給孩子反易拖延；C、D 選項效果不佳或可能強化恐懼感。'
+  },
+  16: {
+    stem: '依據 <strong>Ramsay 鎮靜量表（RSS）</strong>，評分為「3 分」代表病患目前的狀態為何？',
+    options: {
+      A:'激躁、焦慮或無法安靜',
+      B:'合作、定向力正常、安靜',
+      C:'僅對口令（verbal command）有反應',
+      D:'對輕敲眉間或大聲聽覺刺激有敏捷反應'
+    },
+    answer: 'C',
+    explanation: 'Ramsay 鎮靜量表（RSS）六級分類：1分（激躁）、2分（合作安靜）、<strong>3分（僅對口令有反應）</strong>、4分（對輕拍眉間或大聲刺激有敏捷反應）、5分（反應遲鈍）、6分（無反應）。PSA 中度鎮靜目標通常為 RSS 2-3 分；深度鎮靜為 4-5 分。'
+  },
+  17: {
+    stem: '在急診執行 PSA 時，最常見的不良事件（Adverse Event）為？',
+    options: { A:'低血壓（Hypotension）', B:'低血氧（Hypoxia）', C:'嘔吐（Vomiting）', D:'呼吸暫停（Apnea）' },
+    answer: 'B',
+    explanation: '依據 Bellolio et al.（Acad Emerg Med 2016）分析 55 篇文獻共 9,652 例成人鎮靜個案，<strong>低血氧（Hypoxia）</strong>為最常見不良事件（40.2/1,000 例），其中 SpO₂ &lt; 90% 發生率達 23.0/1,000 例。嘔吐（16.4）與低血壓（15.2）次之。'
+  },
+  18: {
+    stem: 'PSA 監測紀錄中，停止記錄的時機，下列何者<strong>不適當</strong>（即此時不應停止記錄）？',
+    options: { A:'移除監視器（Discontinue Monitor）', B:'病患能夠講話', C:'病患需要插管', D:'病患需要急救' },
+    answer: 'B',
+    explanation: '病患「能夠講話」<strong>不代表</strong>可以停止監測記錄。PSA 術後仍需持續觀察直到符合明確的恢復標準（如 Aldrete 評分 ≥ 8 分），方可移除監視器並停止記錄。插管或急救則需轉換至相應的記錄模式，並非單純停止記錄。'
+  },
+  19: {
+    stem: 'PSA 鎮靜止痛紀錄表中必須持續記錄的項目包含？',
+    options: { A:'血壓（Blood Pressure）', B:'血氧飽和度（SpO₂）', C:'心跳（Heart Rate）', D:'以上皆是' },
+    answer: 'D',
+    explanation: 'ASA 建議在鎮靜前、給藥後、操作過程中及恢復期均持續監測：<strong>血壓（每 5 分鐘）、SpO₂（持續）、心跳（持續）</strong>，有心血管疾病者加監測心電圖，並建議中度鎮靜後加入 <strong>EtCO₂ capnography</strong>。'
+  },
+  20: {
+    stem: 'EtCO₂ 波形呈現「<strong>鯊魚鰭形（Shark Fin）</strong>」，沒有明顯的肺泡高原期，最可能代表的臨床情況為？',
+    options: { A:'CO₂ 重複呼吸（Rebreathing）', B:'心輸出量低下', C:'支氣管痙攣或小氣道阻塞', D:'大氣道阻塞或氣管內管扭折' },
+    answer: 'C',
+    explanation: '「鯊魚鰭形」（Shark Fin）波形特徵：Phase II 上升斜率明顯減緩，<strong>無明顯 Phase III 高原期</strong>，整體呈漸升不降的鰭狀。原因為小氣道狹窄（氣喘、COPD、支氣管痙攣）使各肺泡排空速率不同步。使用支氣管擴張劑有效時，波形會逐漸恢復為正常方形，可作為治療反應的即時監測指標。'
+  },
+  21: {
+    stem: 'CPR 期間，EtCO₂ 突然上升至 <strong>≥ 40 mmHg</strong>，最可能代表什麼臨床意義？',
+    options: {
+      A:'氣管內管位置異常，需重新確認',
+      B:'CO₂ 蓄積，應加快通氣頻率',
+      C:'自發性循環恢復（ROSC）的指標',
+      D:'胸外按壓品質不佳，需改善'
+    },
+    answer: 'C',
+    explanation: 'CPR 期間 EtCO₂ 值反映肺部血流灌注：按壓有效時 EtCO₂ 上升；若 EtCO₂ <strong>突然上升至 ≥ 40 mmHg</strong>，通常代表心臟恢復自主跳動、<strong>ROSC（Return of Spontaneous Circulation）</strong>。持續 EtCO₂ &lt; 10 mmHg 超過 20 分鐘則預後極差。'
+  },
+  22: {
+    stem: 'EtCO₂ 波形基線無法歸零（吸氣相 CO₂ &gt; 0 mmHg），最可能的原因為？',
+    options: {
+      A:'支氣管痙攣導致小氣道阻塞',
+      B:'心跳停止導致肺部灌流不足',
+      C:'CO₂ 重複呼吸（Rebreathing），如鈉石灰耗竭或單向閥故障',
+      D:'正常高通氣狀態'
+    },
+    answer: 'C',
+    explanation: 'Rebreathing（重複呼吸）的特徵：<strong>吸氣相基線 CO₂ &gt; 0 mmHg 且逐漸上升</strong>。常見原因：鈉石灰（soda lime）耗竭、新鮮氣體流量不足、單向閥故障、管路死腔過大。處理：更換鈉石灰、提高新鮮氣體流量、檢查單向閥、縮短延伸管路。'
+  },
+  23: {
+    stem: 'PSA 過程中發現病患<strong>舌頭後倒</strong>造成打鼾及 SpO₂ 下降至 90%，病患叫不醒，請問 airway rescue 的正確順序為何？',
+    options: {
+      A:'2→1→3→4（徒手開呼吸道→擺位→正壓呼吸→放 NPA/OPA）',
+      B:'2→1→4→3',
+      C:'1→2→3→4',
+      D:'1→2→4→3（擺位→徒手開呼吸道→放 NPA/OPA→正壓呼吸）'
+    },
+    answer: 'D',
+    explanation: '舌後倒的 Airway Rescue 標準順序：<strong>① 擺位（Sniffing position）→ ② 徒手打開呼吸道（Head-tilt/Chin-lift 或 Jaw-thrust）→ ③ 放置 NPA/OPA → ④ 最後才給予正壓呼吸（Ambu bag）</strong>。正壓呼吸放在最後，是因應先行確保氣道通暢，才能有效通氣。'
+  },
+  24: {
+    stem: 'PSA 過程中已停止手術並使用 Larson\'s maneuver 及 BVM + PEEP，但<strong>喉痙攣（Laryngospasm）</strong>仍未解除，下一步應該是？',
+    options: {
+      A:'Rocuronium IV push',
+      B:'Flumazenil IV push',
+      C:'Propofol IV push（加深麻醉）',
+      D:'Succinylcholine IV push'
+    },
+    answer: 'C',
+    explanation: 'Laryngospasm 管理流程：BVM + CPAP → 加深麻醉（<strong>Propofol 2-3 mg/kg IV</strong>是優先選項）。若仍無改善，才給予 <strong>Succinylcholine</strong>（有 IV：1-2 mg/kg IV；無 IV：3-4 mg/kg IM）。Rocuronium 為備選（1.2 mg/kg）。Flumazenil 不適用，此時拮抗 BZD 無法解除喉肌痙攣。'
+  },
+  25: {
+    stem: 'PSA 過程中發生不良事件，Monitor 顯示 SpO₂ 90%，<strong>第一步</strong>應該是？',
+    options: {
+      A:'立即壓額抬下巴打開呼吸道',
+      B:'對以 Midazolam 鎮靜的病人注射 Flumazenil',
+      C:'靜脈輸液 500 mL N/S 快速滴入',
+      D:'給予鼻導管氧氣 4 L/min'
+    },
+    answer: 'D',
+    explanation: 'PSA 低血氧 Stage 1（自救階段）的第一步是：通知團隊、停止鎮靜與手術、刺激病患，並進行 <strong>RAVOC 評估</strong>。SpO₂ 90% 屬早期，<strong>先給予吸氧（鼻導管 O₂ 4 L/min）</strong>是最快速的初始處置，比直接介入氣道或給拮抗劑更優先。'
+  },
+  26: {
+    stem: 'CICO（Can\'t Intubate, Can\'t Oxygenate）情境下，Vortex 方法的四層救助依序為？',
+    options: {
+      A:'面罩通氣 → LMA → 插管 → 手術氣道',
+      B:'插管 → SAD（上咽喉氣道）→ 面罩通氣 → 手術氣道',
+      C:'插管 → 面罩通氣 → SAD → 手術氣道',
+      D:'SAD → 插管 → 面罩通氣 → 手術氣道'
+    },
+    answer: 'B',
+    explanation: 'Vortex / CICO 認知工具四層級：<strong>A層—插管（Intubation）→ B層—SAD（第二代上咽喉氣道）→ C層—面罩通氣（2 人技術）→ D層—手術氣道（環甲膜切開術）</strong>。每層最多嘗試 3 次後快速轉換，全程持續監測 SpO₂ 與 EtCO₂。'
+  },
+  27: {
+    stem: '關於環甲膜切開術（Cricothyroidotomy），下列步驟描述何者正確？',
+    options: {
+      A:'先做橫向（水平）皮膚切口，再穿刺環甲膜',
+      B:'先做縱向皮膚切口（約 8 cm），觸診確認環甲膜後水平穿刺，置入 bougie 再套入 6.0 ET tube',
+      C:'直接用 18G 針頭針刺環甲膜即可建立緊急氣道，無需手術刀',
+      D:'插入 ET tube 後充氣氣囊，不需確認 CO₂ 或呼吸音'
+    },
+    answer: 'B',
+    explanation: '手術性環甲膜切開術標準步驟：①<strong>縱向皮膚切口（約 8 cm）</strong>→ ②觸診確認環甲膜位置 → ③<strong>水平穿刺環甲膜</strong> → ④旋轉手術刀 90° → ⑤置入 Bougie → ⑥套入<strong>6.0 ET tube</strong> → ⑦充氣氣囊 → ⑧確認 CO₂ 和呼吸音。縱向皮膚切口避開表面血管，比橫向切口更安全。'
+  },
+  28: {
+    stem: '根據台灣急診醫學會鎮靜指南，當執行簡易的<strong>肩關節復位 PSA</strong> 時，下列敘述何者<strong>錯誤</strong>？',
+    options: {
+      A:'肩關節復位可採取「雙人鎮靜模式」，由給藥者同時執行復位手法',
+      B:'Propofol 為此情境首選藥物，因其具有肌肉鬆弛效果',
+      C:'監測者在手術進行中可暫時協助提供器材，不影響安全性',
+      D:'須備妥氣道管理設備及逆轉藥物，確保可即時應變不良事件'
+    },
+    answer: 'C',
+    explanation: '<strong>監測者不得在 PSA 過程中擅自離開崗位</strong>，即使是短暫去拿器材，也可能延誤發現低血氧、呼吸抑制或其他不良事件的黃金處置時機。肩關節復位可採取<strong>「雙人鎮靜模式」</strong>：由給藥者同時執行復位手法，但仍需獨立的監測者持續評估 RAVOC（呼吸、氣道、通氣、血氧、循環）。Propofol 因具肌肉鬆弛效果確為復位首選，且術前須備妥氣道設備與逆轉藥物。'
+  },
+  29: {
+    stem: '下列哪些措施可有效降低 PSA 過程中的錯誤率？',
+    options: {
+      A:'術前針對不良事件應變過程建立 SOP 及團隊演習',
+      B:'執行 PSA 前由團隊成員先行複習 Emergency Manual',
+      C:'術後病患已清醒即可撤除監視器',
+      D:'由執行 procedure 的醫師同時負責監測，以節省人力'
+    },
+    answer: 'A',
+    explanation: 'CRM（危機資源管理）研究顯示，<strong>事前建立 SOP 及定期團隊演習</strong>是降低錯誤率最有效的制度性措施。Emergency Manual 應於危機當下使用（而非事前複習）。術後未達出院標準前不應撤除監視器。Procedure 執行者與監測者應為不同人員，避免注意力分散。'
+  },
+  30: {
+    stem: 'Aldrete 評分達到幾分以上，方可考慮讓病患從 PSA 恢復室<strong>出院</strong>？',
+    options: { A:'≥ 6 分', B:'≥ 7 分', C:'≥ 8 分', D:'≥ 10 分（滿分）' },
+    answer: 'C',
+    explanation: 'Aldrete 評分（滿分 10 分）評估：呼吸、血氧飽和度、意識狀態、循環、活動能力，各項 0-2 分。<strong>≥ 8 分</strong>可考慮出院（PADSS 為 ≥ 9 分）。出院時需有成人陪同，不得自行駕車，並提供書面出院指導，建議 24 小時內避免駕駛、操作重型機械或做具法律效力的決定。'
+  }
+};
+
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+const state = {}; // { qNum: { chosen, answered, correct } }
+const TOTAL = 30;
+
+// ═══════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════
+function render() {
+  const container = document.getElementById('quizMain');
+  container.innerHTML = '';
+
+  SECTIONS.forEach(section => {
+    // Section header
+    const sh = document.createElement('div');
+    sh.className = 'section-header';
+    sh.innerHTML = `<span class="section-number">${section.title}</span>
+      <span class="section-title">${section.subtitle}</span>
+      <div class="section-rule"></div>`;
+    container.appendChild(sh);
+
+    // Questions
+    section.questions.forEach(qNum => {
+      container.appendChild(buildCard(qNum));
+    });
+  });
+
+  // Score panel
+  const panel = document.createElement('div');
+  panel.className = 'score-panel';
+  panel.id = 'scorePanel';
+  panel.innerHTML = `
+    <h2>測驗完成 🎉</h2>
+    <div class="score-big" id="scoreBig">—</div>
+    <div class="score-sub" id="scoreSub">共 ${TOTAL} 題</div>
+    <div class="panel-btns">
+      <button class="restart-btn" onclick="restart()">重新作答</button>
+      <a href="index.html" class="home-btn-panel">← 返回首頁</a>
+    </div>`;
+  container.appendChild(panel);
+}
+
+function buildCard(qNum) {
+  const q = QUESTIONS[qNum];
+  const s = state[qNum] || {};
+
+  const card = document.createElement('div');
+  card.className = 'q-card' + (s.answered ? ' answered' : '');
+  card.id = 'q' + qNum;
+
+  // Head
+  const numClass = s.answered ? (s.correct ? ' correct-q' : ' wrong-q') : '';
+  card.innerHTML = `
+    <div class="q-head">
+      <div class="q-num${numClass}" id="qn${qNum}">${qNum}</div>
+      <div class="q-text">${q.stem}</div>
+    </div>
+    <div class="q-body" id="qbody${qNum}"></div>
+    <div class="q-footer" id="qfooter${qNum}">
+      <button class="submit-btn${s.chosen && !s.answered ? ' ready' : ''}" id="sb${qNum}">確認答案</button>
+    </div>
+    <div class="answer-block${s.answered ? ' visible' : ''}" id="ab${qNum}">
+      <span class="answer-badge ${s.answered ? (s.correct ? 'correct-badge' : 'wrong-badge') : ''}" id="badge${qNum}">
+        ${s.answered ? (s.correct ? `✓ 正確！答案：${q.answer}` : `✗ 答錯。正確答案：${q.answer}`) : ''}
+      </span>
+      <div class="explanation">${q.explanation}</div>
+    </div>`;
+
+  // Options
+  const body = card.querySelector('#qbody' + qNum);
+  ['A','B','C','D'].forEach(letter => {
+    const opt = document.createElement('div');
+    let cls = 'option';
+    if (s.answered) {
+      cls += ' locked';
+      if (letter === q.answer) cls += ' show-correct';
+      else if (letter === s.chosen && !s.correct) cls += ' show-wrong';
+    } else if (s.chosen === letter) {
+      cls += ' selected';
+    }
+    opt.className = cls;
+    if (!s.answered) opt.addEventListener('click', () => selectOption(qNum, letter));
+
+    const mark = (s.answered && letter === q.answer) ? '✓'
+               : (s.answered && letter === s.chosen && !s.correct) ? '✗' : '';
+
+    opt.innerHTML = `<span class="option-letter">${letter}.</span><span>${q.options[letter]}</span><span class="option-mark">${mark}</span>`;
+    body.appendChild(opt);
+  });
+
+  // Submit button event
+  const sb = card.querySelector('#sb' + qNum);
+  if (s.answered) {
+    sb.style.display = 'none';
+  } else {
+    sb.addEventListener('click', () => submitAnswer(qNum));
+  }
+
+  return card;
+}
+
+// ═══════════════════════════════════════════════
+//  INTERACTION
+// ═══════════════════════════════════════════════
+function selectOption(qNum, letter) {
+  if (state[qNum] && state[qNum].answered) return;
+  if (!state[qNum]) state[qNum] = { chosen: null, answered: false, correct: false };
+  state[qNum].chosen = letter;
+
+  // Update option visuals
+  const body = document.getElementById('qbody' + qNum);
+  body.querySelectorAll('.option').forEach((opt, i) => {
+    opt.classList.remove('selected');
+    if (['A','B','C','D'][i] === letter) opt.classList.add('selected');
+  });
+
+  // Enable submit
+  const sb = document.getElementById('sb' + qNum);
+  sb.classList.add('ready');
+}
+
+function submitAnswer(qNum) {
+  if (!state[qNum] || !state[qNum].chosen) return;
+  if (state[qNum].answered) return;
+
+  const q = QUESTIONS[qNum];
+  const chosen = state[qNum].chosen;
+  const correct = chosen === q.answer;
+
+  state[qNum].answered = true;
+  state[qNum].correct = correct;
+
+  // Lock options + show correct/wrong
+  const body = document.getElementById('qbody' + qNum);
+  body.querySelectorAll('.option').forEach((opt, i) => {
+    const letter = ['A','B','C','D'][i];
+    opt.classList.add('locked');
+    opt.classList.remove('selected');
+    opt.removeEventListener('click', () => {});
+
+    const mark = opt.querySelector('.option-mark');
+    if (letter === q.answer) {
+      opt.classList.add('show-correct');
+      mark.textContent = '✓';
+    } else if (letter === chosen && !correct) {
+      opt.classList.add('show-wrong');
+      mark.textContent = '✗';
+    }
+  });
+
+  // Hide submit
+  document.getElementById('sb' + qNum).style.display = 'none';
+
+  // Show answer block
+  const ab = document.getElementById('ab' + qNum);
+  ab.classList.add('visible');
+  const badge = document.getElementById('badge' + qNum);
+  if (correct) {
+    badge.textContent = `✓ 正確！答案：${q.answer}`;
+    badge.className = 'answer-badge correct-badge';
+  } else {
+    badge.textContent = `✗ 答錯。正確答案：${q.answer}`;
+    badge.className = 'answer-badge wrong-badge';
+  }
+
+  // Number circle
+  const qn = document.getElementById('qn' + qNum);
+  qn.classList.add(correct ? 'correct-q' : 'wrong-q');
+
+  // Card styling
+  document.getElementById('q' + qNum).classList.add('answered');
+
+  updateProgress();
+  checkComplete();
+}
+
+function updateProgress() {
+  const answered = Object.values(state).filter(s => s.answered).length;
+  const correct  = Object.values(state).filter(s => s.answered && s.correct).length;
+  document.getElementById('progressFill').style.width = (answered / TOTAL * 100) + '%';
+  document.getElementById('scoreLive').textContent = `${correct} / ${answered} 正確`;
+}
+
+function checkComplete() {
+  const answered = Object.values(state).filter(s => s.answered).length;
+  if (answered < TOTAL) return;
+
+  const correct = Object.values(state).filter(s => s.correct).length;
+  const panel = document.getElementById('scorePanel');
+  panel.classList.add('visible');
+  document.getElementById('scoreBig').textContent = `${correct} / ${TOTAL}`;
+  const pct = Math.round(correct / TOTAL * 100);
+  const msg = pct >= 90 ? '優秀！' : pct >= 70 ? '良好，繼續加油！' : '建議複習講義後再試。';
+  document.getElementById('scoreSub').textContent = `正確率 ${pct}%　${msg}`;
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function restart() {
+  // Clear all state
+  for (const k in state) delete state[k];
+  // Re-render
+  render();
+  // Reset progress bar
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('scoreLive').textContent = '0 / 30';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+render();
+</script>
+</body>
+</html>
